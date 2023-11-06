@@ -1,0 +1,21 @@
+{
+  "name": "atrium",
+  "version": "0.0.1",
+  "description": "Desctop app for tracking your daily and long-term tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron . ",
+    "start:watch": "npx electronmon --trace-warnings ."
+  },
+  "keywords": [
+    "electron",
+    "reactjs",
+    "goland"
+  ],
+  "author": "Artem Mamitov",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^27.0.3"
+  }
+}
