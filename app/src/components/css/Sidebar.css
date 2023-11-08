@@ -1,0 +1,11 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 80px;
+    background: black;
+    padding: 8px 16px;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
