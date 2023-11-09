@@ -1,19 +1,21 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
-export const Layout: React.FC = () => {
+import Home from '../pages/Home'; // Импортируем компонент Home
+import Calendar from '../pages/Calendar'; // Импортируем компонент Calendar
+import Todo from '../pages/Todo'; // Импортируем компонент Todo
+import './css/Content.css';
+
+const Content: React.FC = () => {
     return (
-    <div>
-        <p>This is out Layout</p>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/work">Work</a>
-            </li>
-        </ul>
-        <Outlet />
-    </div>
+      <div className="content">
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/todo" element={<Todo />} />
+        </Routes>
+      </div>
     );
-};
+  };
+  
+  export default Content;

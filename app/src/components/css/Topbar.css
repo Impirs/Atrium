@@ -1,3 +1,5 @@
+@import '../../theme.css';
+
 .topbar {
     display: flex;
     align-items: center;

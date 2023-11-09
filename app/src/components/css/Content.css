@@ -1,0 +1,11 @@
+@import '../../theme.css';
+
+.content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: calc(100% - 100px);
+    background: var(--backgr-clr);
+    z-index: 1;
+}

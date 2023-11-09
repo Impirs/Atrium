@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './css/Sidebar.css'
 import Home from '../pages/Home'; // Импортируем компонент Home
 import Calendar from '../pages/Calendar'; // Импортируем компонент Calendar
-import Todo from '../pages/Todo'; // Импортируем компонент TodoList
+import Todo from '../pages/Todo'; // Импортируем компонент Todo
 
 const Sidebar: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
             <Link to="/calendar">Calendar</Link> {/* Используем Link к компоненту Calendar */}
           </li>
           <li>
-            <Link to="/todolist">Todo</Link> {/* Используем Link к компоненту TodoList */}
+            <Link to="/todo">Todo</Link> {/* Используем Link к компоненту Todo*/}
           </li>
         </ul>
       </nav>

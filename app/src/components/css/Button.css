@@ -1,3 +1,5 @@
+@import '../../theme.css';
+
 .custom-button {
     color: white;
     background-color: transparent;
