@@ -1,19 +1,21 @@
 :root {
     /* --main-font: url('../../assets/fonts/Comfortaa/Comfortaa_Bold.ttf'); */
     --lpanel-clr: #60718f;
-    --secondary-clr: #8090a9;
+    /* --secondary-clr: #8090a9; */
     --backgr-clr: #c9d1d8;
     --calendar-clr: #f0eae4;
-    --icons-clr: #f4d3d1;
+    --icon-clr: #f0eae4;
+    --secondary-clr: #f4d3d1;
     --shadow-clr: #252d3a4b;
 }
 
 .light-theme {
     --lpanel-clr: #60718f;
-    --secondary-clr: #8090a9;
-    --calendar-clr: #c9d1d8;
-    --backgr-clr: #f0eae4;
-    --icons-clr: #f4d3d1;
+    /* --secondary-clr: #8090a9; */
+    --backgr-clr: #c9d1d8;
+    --calendar-clr: #f0eae4;
+    --icon-clr: #f0eae4;
+    --secondary-clr: #f4d3d1;
     --shadow-clr: #252d3a4b;
 }
 

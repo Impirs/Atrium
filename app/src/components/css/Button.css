@@ -1,26 +1,28 @@
 @import '../../theme.css';
 
 .custom-button {
-    color: white;
     background-color: transparent;
     border: none;
     padding: 0;
+    width: 64px;
+    height: 64px;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-    /* Добавляем анимацию смены цвета фона */
 }
 
 .custom-button:hover {
     color: black;
-    background-color: white;
-    /* Изменяем фон на белый при наведении */
+    background-color: var(--icon-clr);
 }
 
 .button-icon {
+    color: var(--icon-clr);
     width: 64px;
     height: 64px;
     border-radius: 10px;
     display: block;
     margin: 0 auto;
+    object-fit: contain;
+    /* color: var(--backgr-clr); */
 }

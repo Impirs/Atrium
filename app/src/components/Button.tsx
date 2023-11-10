@@ -1,18 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './css/Button.css'
 
 interface ButtonProps {
   imageUrl: string;
+  to: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ imageUrl }) => {
+const Button: React.FC<ButtonProps> = ({ imageUrl, to }) => {
   return (
-    <button className="custom-button">
-      <img
-        src={imageUrl} // Используем переданное изображение
-        alt="Button Icon"
-        className="button-icon"
-      />
-    </button>
+    <Link to={to} style={{ textDecoration: 'none' }}>
+      <button className="custom-button">
+        <img
+          src={imageUrl}
+          alt="Button Icon"
+          className="button-icon"
+        />
+      </button>
+    </Link>
   );
 };
 

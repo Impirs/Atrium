@@ -2,11 +2,18 @@
 
 .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
     height: 100vh;
     width: 100%;
     background: var(--lpanel-clr);
     padding: 8px 8px;
     z-index: -1;
+}
+
+ul{
+    padding-inline-start: 0px;
+}
+
+li{
+    min-height: 64px;
+    min-width: 64px;
 }
