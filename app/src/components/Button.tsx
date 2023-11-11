@@ -1,6 +1,7 @@
+import './css/Button.css'
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './css/Button.css'
 
 interface ButtonProps {
   imageUrl: string;
