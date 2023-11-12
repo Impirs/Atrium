@@ -8,13 +8,13 @@ const Sidebar: React.FC = () => {
       <nav>
         <ul>
           <li>
-            <Button imageUrl="../../assets/home.svg" to="../pages/Home" />
+            <Button imageUrl="../../assets/home.svg" to="../pages/Home.tsx" />
           </li>
           <li>
-            <Button imageUrl="../../assets/calendar.svg" to="../pages/Calendar" />
+            <Button imageUrl="../../assets/calendar.svg" to="../pages/Calendar.tsx" />
           </li>
           <li>
-            <Button imageUrl="../../assets/todolist.svg" to="../pages/Todo" />
+            <Button imageUrl="../../assets/todolist.svg" to="../pages/Todo.tsx" />
           </li>
         </ul>
       </nav>
