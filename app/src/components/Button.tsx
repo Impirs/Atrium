@@ -1,16 +1,16 @@
 import './css/Button.css'
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   imageUrl: string;
-  to: string;
+  //to: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ imageUrl, to }) => {
+const Button: React.FC<ButtonProps> = ({ imageUrl }) => {
   return (
-    <Link to={to} style={{ textDecoration: 'none' }}>
+    // <Link to={to} style={{ textDecoration: 'none' }}>
       <button className="custom-button">
         <img
           src={imageUrl}
@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({ imageUrl, to }) => {
           className="button-icon"
         />
       </button>
-    </Link>
+    //</Link>
   );
 };
 

@@ -1,4 +1,4 @@
-@import '../../theme.css'; 
+@import '../../theme.css';
 
 .sidebar {
     position: fixed;
@@ -9,11 +9,12 @@
     z-index: -1;
 }
 
-.sidebar ul{
-    margin-top:20px;
+.sidebar ul {
+    margin-top: 20px;
     padding-inline-start: 0px;
 }
 
+/* 
 .sidebar ul li{
     position:relative;
     height:50px;
@@ -21,9 +22,9 @@
     margin:5px 0;
     list-style: none;
     line-height: 50px;
-}
+} */
 
-/* .sidebar ul li .tooltip {
+.sidebar ul li .tooltip {
     position: absolute;
     left: 125px;
     top: 0;
@@ -31,10 +32,10 @@
     border-radius: 6px;
     height: 35px;
     width: 120px;
-    background: var(--white-color);
+    background: var(--icon-clr);
     line-height: 35px;
     text-align: center;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px var(--shadow-clr);
     transition: 0s;
     opacity: 0;
     pointer-events: none;
@@ -47,7 +48,7 @@
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 10px solid var(--white-color);
+    border-right: 10px solid var(--icon-clr);
     position: absolute;
     left: -8px;
     top: 7px;
@@ -61,4 +62,18 @@
     transition: all 0.5s ease;
     opacity: 1;
     top: 50%;
-} */
+}
+
+.sidebar .links_name {
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar.active .links_name {
+    transition: 0s;
+    opacity: 1;
+    pointer-events: auto;
+}
