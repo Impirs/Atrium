@@ -1,24 +1,24 @@
 import './css/Button.css'
 
 import React from 'react';
-//import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface ButtonProps {
   imageUrl: string;
-  //to: string;
+  to: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ imageUrl }) => {
+const Button: React.FC<ButtonProps> = ({ imageUrl, to }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(to);
+  };
+
   return (
-    // <Link to={to} style={{ textDecoration: 'none' }}>
-      <button className="custom-button">
-        <img
-          src={imageUrl}
-          alt="Button Icon"
-          className="button-icon"
-        />
-      </button>
-    //</Link>
+    <button className="custom-button" onClick={handleClick}>
+      <img src={imageUrl} alt="Button Icon" className="button-icon" />
+    </button>
   );
 };
 

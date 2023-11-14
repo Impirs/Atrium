@@ -1,28 +1,28 @@
 @import '../../theme.css';
 
-.sidebar {
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    background: var(--lpanel-clr);
-    padding: 8px 8px;
-    z-index: -1;
-}
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width: 52px;
+    background:var(--lpanel-clr);
+    padding:6px 14px;
+    z-index:99;
+    transition:all 0.5s ease;
+  }
 
 .sidebar ul {
-    margin-top: 20px;
+    margin-top: 52px;
     padding-inline-start: 0px;
 }
 
-/* 
-.sidebar ul li{
-    position:relative;
-    height:50px;
-    width:100%;
-    margin:5px 0;
+.sidebar ul li {
+    position: relative;
+    width: 100%;
     list-style: none;
-    line-height: 50px;
-} */
+    height: 52px;
+}
 
 .sidebar ul li .tooltip {
     position: absolute;
@@ -62,6 +62,12 @@
     transition: all 0.5s ease;
     opacity: 1;
     top: 50%;
+}
+
+.sett {
+    position: absolute;
+    margin-bottom: 20px;
+    bottom: 0px;
 }
 
 .sidebar .links_name {

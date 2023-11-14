@@ -5,12 +5,9 @@ import Content from './components/Content';
 
 // Компонент для основного окна
 const MainContent: React.FC = () => (
-  <div>
-    <div>
-    {/* <div style={{ display: 'flex' }}> */}
-      <Sidebar /> 
-      <Content />
-    </div>
+  <div style={{ display: 'flex' }}>
+    <Sidebar />
+    <Content />
   </div>
 );
 

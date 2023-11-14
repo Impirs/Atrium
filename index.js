@@ -12,7 +12,7 @@ function createMainWindow() {
 		//webPreferences: {webSecurity: false, }
 	});
 
-	//mainWindow.setIcon('./assets/Atrium_2_64.png');
+	mainWindow.setIcon('./assets/Atrium_2_64.png');
     
 	mainWindow.webContents.openDevTools();
 	
