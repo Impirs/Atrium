@@ -6,14 +6,16 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import Calendar from '../pages/Calendar';
 import Todo from '../pages/Todo';
+import Settings from '../pages/Settings';
 
 const Content: React.FC = () => {
   return (
     <div className="content">
       <Routes>
-        <Route path="../pages/Home" element={<Home />} />
-        <Route path="../pages/Calendar" element={<Calendar />} />
-        <Route path="../pages/Todo" element={<Todo />} />
+        <Route path="home" element={<Home />} />
+        <Route path="calendar" element={<Calendar />} />
+        <Route path="todo" element={<Todo />} />
+        <Route path="settings" element={<Settings />} />
       </Routes>
     </div>
   );

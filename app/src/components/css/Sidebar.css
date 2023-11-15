@@ -13,7 +13,7 @@
   }
 
 .sidebar ul {
-    margin-top: 52px;
+    margin-top: 64px;
     padding-inline-start: 0px;
 }
 
@@ -26,7 +26,7 @@
 
 .sidebar ul li .tooltip {
     position: absolute;
-    left: 125px;
+    left: 122px;
     top: 0;
     transform: translate(-50%, -50%);
     border-radius: 6px;
@@ -64,9 +64,26 @@
     top: 50%;
 }
 
+.logo{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 64px;
+    height: 64px;
+    margin: 7px 7px 7px 7px;
+    border-radius: 10px;
+}
+
+.logo img{
+    margin-top: 12px;
+    margin-left: 12px;
+    width: 40px;
+    height: 40px;
+}
+
 .sett {
     position: absolute;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     bottom: 0px;
 }
 
