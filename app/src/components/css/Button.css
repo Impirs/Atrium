@@ -17,6 +17,7 @@
 }
 
 .button-icon {
+    user-select: none;
     fill: var(--icon-clr);
     width: 32px;
     height: 32px;

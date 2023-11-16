@@ -1,16 +1,16 @@
 @import '../../theme.css';
 
-.sidebar{
-    position:fixed;
-    top:0;
-    left:0;
-    height:100%;
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 52px;
-    background:var(--lpanel-clr);
-    padding:6px 14px;
-    z-index:99;
-    transition:all 0.5s ease;
-  }
+    background: var(--lpanel-clr);
+    padding: 6px 14px;
+    z-index: 99;
+    transition: all 0.5s ease;
+}
 
 .sidebar ul {
     margin-top: 64px;
@@ -64,8 +64,9 @@
     top: 50%;
 }
 
-.logo{
+.logo {
     position: absolute;
+    user-select: none;
     top: 0px;
     left: 0px;
     width: 64px;
@@ -74,7 +75,8 @@
     border-radius: 10px;
 }
 
-.logo img{
+.logo img {
+    user-select: none;
     margin-top: 12px;
     margin-left: 12px;
     width: 40px;
