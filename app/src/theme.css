@@ -1,5 +1,5 @@
 :root {
-    /* --main-font: url('../../assets/fonts/Comfortaa/Comfortaa_Bold.ttf'); */
+    --main-font: url('../../assets/fonts/Comfortaa/Comfortaa_Bold.ttf');
     --lpanel-clr: #60718f;
     --hover-clr: #8090a9;
     --backgr-clr: #c9d1d8;
@@ -7,6 +7,7 @@
     --icon-clr: #f0eae4;
     --secondary-clr: #f4d3d1;
     --shadow-clr: #252d3a4b;
+    --dark-clr: #252d3a;
 }
 
 .light-theme {
@@ -27,7 +28,7 @@
     --icons-clr: ;
 }
 
-/* @font-face {
+@font-face {
     font-family: 'Comfortaa';
     src: var(--main-font) format('ttf');
     font-weight: normal;
@@ -38,5 +39,5 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Comfortaa, Bold;
-} */
+    font-family: Comfortaa;
+}
