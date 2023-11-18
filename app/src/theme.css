@@ -41,3 +41,21 @@
     box-sizing: border-box;
     font-family: Comfortaa;
 }
+
+/* 
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-clr);
+    border-radius: 100vw;
+    border: 0.2em solid var(--backgr-clr);
+    margin-block: 1em var(--backgr-clr);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dark-clr);
+    border-radius: 100vw;
+} 
+*/
