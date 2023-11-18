@@ -17,6 +17,7 @@
   "author": "Artem Mamitov",
   "license": "MIT",
   "dependencies": {
-    "electron": "^27.0.3"
+    "electron": "^27.0.3",
+    "react-router-dom": "^6.19.0"
   }
 }

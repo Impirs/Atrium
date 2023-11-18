@@ -13,7 +13,7 @@ function createMainWindow() {
 	});
 
 	mainWindow.setIcon('./assets/Atrium_2_64.png');
-    
+
 	//mainWindow.webContents.openDevTools();
 
 	const startUrl = url.format({
@@ -22,18 +22,6 @@ function createMainWindow() {
 	});
 
 	mainWindow.loadURL(startUrl);
-
-	if (process.env.NODE_ENV === 'development') {
-		require('electron-reload')(__dirname, {
-			electron: require(`${__dirname}/node_modules/electron`),
-		});
-
-		const { globalShortcut } = require('electron');
-
-		globalShortcut.register('Ctrl+Shift+R', () => {
-			mainWindow.webContents.reloadIgnoringCache();
-		});
-	}
 }
 
 app.whenReady().then(createMainWindow);

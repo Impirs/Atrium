@@ -1,6 +1,6 @@
 .dyncalendar-container {
     display: inline-block;
-    border : 1px solid #eee;
+    border: 1px solid #eee;
 }
 
 .dyncalendar-container.round-edge {
@@ -15,26 +15,32 @@
  * day calendar style
  *-------------------------------------------------*/
 .dyncalendar-day-container {
-    padding : 10px;
-    text-align : center;
-    font-family : Arial;
+    padding: 5px;
+    text-align: center;
+    font-family: Arial;
 }
 
-.dyncalendar-day-container div{
-    padding : 0px;
-    margin-bottom : 10px;
+.dyncalendar-day-container div {
+    padding: none;
+    margin-bottom: none;
 }
 
-.dyncalendar-day-container .dyncalendar-span-day {
-    font-size : 110%;
+.dyncalendar-day-container .dyncalendar-header {
+    padding: 0px;
+    margin-bottom: none;
 }
 
 .dyncalendar-day-container .dyncalendar-span-date {
-    font-size : 250%;
+    font-size: 2.5em;
+}
+
+.dyncalendar-day-container .dyncalendar-span-day {
+    font-size: 1.5em;
 }
 
 .dyncalendar-day-container .dyncalendar-span-month-year {
-    font-size : 90%
+    font-size: 0.75em;
+    min-height: 14px;
 }
 
 /*===================== DAY CALENDAR ENDS HERE ====================*/
@@ -47,53 +53,50 @@
  * month calendar style
  *-------------------------------------------------*/
 .dyncalendar-month-container {
-    padding : 10px;
-    text-align : center;
-    font-family : Arial;
+    padding: 10px;
+    text-align: center;
+    font-family: Arial;
 }
 
-.dyncalendar-month-container div{
-    padding : 0px;
-    margin-bottom : 0px;
+.dyncalendar-month-container div {
+    padding: 0px;
+    margin-bottom: 0px;
 }
 
 .dyncalendar-month-container .dyncalendar-header {
-    position : relative;
+    position: relative;
     min-height: 36px;
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn {
-    position : absolute;
-    top : 0px;
-    cursor : pointer;
+.dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn {
+    position: absolute;
+    top: 0px;
+    cursor: pointer;
     text-align: center;
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.prev-btn {
-    left : 0px;
+.dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn {
+    left: 0px;
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.next-btn {
-    right : 0px;
+.dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.next-btn {
+    right: 0px;
 }
 
 .dyncalendar-month-container .dyncalendar-span-month-year {
     position: absolute;
     bottom: 0px;
-    margin : 5px;
-    cursor : pointer;
+    margin: 5px;
+    cursor: pointer;
 }
 
 .dyncalendar-month-container .dyncalendar-body table tr td {
-    padding : 5px;
+    padding: 5px;
 }
 
 .dyncalendar-month-container .dyncalendar-today-date,
 .dyncalendar-month-container .dyncalendar-target-date {
     background-color: #111;
-    color : #fff;
+    color: #fff;
     border-radius: 10px;
 }

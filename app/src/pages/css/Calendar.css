@@ -1,61 +1,62 @@
 @import '../../theme.css';
 
 .screen {
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: var(--backgr-clr);
-    margin-left: 80px;
-    border-radius: 10px;
+    height: 100vh;
 }
 
 .box {
     position: relative;
-    background: var(--calendar-clr);
+    display: flex;
     border-radius: 10px;
 }
 
-.container {
+.month {
     position: relative;
     min-width: 480px;
-    min-height: 466px;
+    min-height: 476px;
+    background: var(--calendar-clr);
     border-radius: 10px;
     box-shadow:
         5px 5px 25px var(--shadow-clr),
         -5px -5px 25px var(--shadow-clr);
 }
 
-/*----------------------------------------------------------------------------/
-/-----------------------------------DYNCALENDAR--------------------------------/
-/-----------------------------------------------------------------------------/
-    #dyncalendar
-    #dyncalendar table
-    #dyncalendar table tr td
-    #dyncalendar table td:hover
-    #dyncalendar table td:nth-child(1) td
-    #dyncalendar table tr:nth-child(1) td:nth-child(6-7)
-    .dyncalendar-month-container .dycalendar-target-date
-*/
-
-#dyncalendar {
-    font-size: 1.5em;
-    width: 100%;
-    padding: 30px 30px 30px;
+.container {
+    position: relative;
+    margin-left: 16px;
+    min-width: 286px;
+    min-height: 466px;
+    background: var(--calendar-clr);
+    border-radius: 10px;
+    box-shadow:
+        5px 5px 25px var(--shadow-clr),
+        -5px -5px 25px var(--shadow-clr);
 }
 
-#dyncalendar .header {
-    text-align: center;
-} 
+/*===========================MONTHCALENDAR=========================*/
 
-#dyncalendar table {
+#monthcal {
+    font-size: 1.5em;
+    width: 100%;
+    padding: 32px 30px 30px;
+}
+
+#monthcal .dyncalendar-header {
+    height: 44px;
+}
+
+#monthcal table {
     font-size: 0.75em;
     width: 100%;
     border-spacing: 15px;
     margin-top: 20px;
 }
 
-#dyncalendar table tr td {
+#monthcal table tr td {
     min-height: 36px;
     min-width: 36px;
     text-align: center;
@@ -66,13 +67,13 @@
         -5px -5px 10px var(--calendar-clr);
 }
 
-#dyncalendar table td:hover {
+#monthcal table td:hover {
     box-shadow:
         inset 2px 2px 5px var(--shadow-clr),
         inset -2px -2px 5px var(--calendar-clr);
 }
 
-#dyncalendar table tr:nth-child(1) td {
+#monthcal table tr:nth-child(1) td {
     background: var(--lpanel-clr);
     color: var(--calendar-clr);
     min-height: auto;
@@ -81,20 +82,20 @@
     font-weight: 700;
     box-shadow:
         5px 5px 10px var(--shadow-clr),
-        -5px -5px 10px var(--shadow-clr);
+        -5px -5px 10px var(--calendar-clr);
 }
 
-#dyncalendar table tr:nth-child(1) td:nth-child(6) {
+#monthcal table tr:nth-child(1) td:nth-child(6) {
     background: var(--secondary-clr);
     color: #000;
 }
 
-#dyncalendar table tr:nth-child(1) td:nth-child(7) {
+#monthcal table tr:nth-child(1) td:nth-child(7) {
     background: var(--secondary-clr);
     color: #000;
 }
 
-.dyncalendar-month-container .dyncalendar-today-date {
+#monthcal .dyncalendar-month-container .dyncalendar-today-date {
     background: var(--lpanel-clr);
     color: var(--calendar-clr) !important;
     box-shadow:
@@ -102,12 +103,12 @@
         -2px -2px 5px var(--calendar-clr) !important;
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.prev-btn {
+#monthcal .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn {
     width: 36px;
     text-align: center;
     font-size: 1em;
     left: 15px;
+    top: 4px;
     color: var(--dark-clr);
     background: var(--calendar-clr);
     border-radius: 10px;
@@ -116,12 +117,12 @@
         -2px -2px 5px var(--calendar-clr);
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.next-btn {
-    width: 37px;
+#monthcal .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.next-btn {
+    width: 36px;
     text-align: center;
     font-size: 1em;
     right: 15px;
+    top: 4px;
     color: var(--dark-clr);
     background: var(--calendar-clr);
     border-radius: 10px;
@@ -130,20 +131,30 @@
         -2px -2px 5px var(--calendar-clr);
 }
 
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.prev-btn:active ,
-.dyncalendar-month-container .dyncalendar-header 
-.dyncalendar-prev-next-btn.next-btn:active{
+#monthcal .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn:active,
+#monthcal .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.next-btn:active {
     box-shadow:
         inset 2px 2px 5px var(--shadow-clr),
         inset -2px -2px 5px var(--calendar-clr);
 }
 
-.dyncalendar-span-month-year{
-    min-width: 252px;
-    left: 50%;
+#monthcal .dyncalendar-span-month-year {
+    min-width: 282px;
+    left: 49%;
     transform: translateX(-50%);
-    color: var(--lpanel-clr);
-    font-size: 1.25em;
+    color: var(--dark-clr);
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
+/*============================DAYCALENDAR==========================*/
+
+#daycal {
+    width: 100%;
+    padding: 30px 30px 30px;
+}
+
+#daycal .dyncalendar-span-date {
+    color: var(--dark-clr);
     font-weight: 400;
 }
