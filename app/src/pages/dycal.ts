@@ -2,7 +2,6 @@ declare var dyncalendar: Dyncalendar;
 
 interface Dyncalendar {
     draw(option: Record<string, any>): boolean;
-    // другие свойства, если они есть
 }
 
 interface MonthName {
