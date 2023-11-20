@@ -2,6 +2,12 @@ declare var dyncalendar: Dyncalendar;
 
 interface Dyncalendar {
     draw(option: Record<string, any>): boolean;
+    //showDay(option: Record<string, any>): boolean;
+    //data: Event[];
+}
+
+interface Event {
+    data: string;
 }
 
 interface MonthName {
