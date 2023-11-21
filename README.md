@@ -4,24 +4,50 @@ _An application for tracking your daily and long-term tasks._
 
 ## Content
 
--   Tech information
-    -   Calendar
-    -   Events
-    -   Database
-    -   UI
--   User information
-    -   Account
-    -   Structure
-    -   Shortcuts
+- Tech information
+  - Information keeping
+  - Calendar
+  - Events
+  - Database
+  - UI
+- User information
+  - Account
+  - Structure
+  - Shortcuts
 
 ## Tech information
+
+### Information keeping
+
+**JSON file structure:**
+
+```markdown
+{
+-   "user_login": {
+    -   mail: "usermail@gmail.com",
+    -   password: "password",
+    -   autologin: 0,
+    -   id: aaaa0000
+    },
+-    "user_info":{
+    -   name: "Name",
+    -   surname: "Surname",
+    -   day_b: 1,
+    -   month_b: 1,
+    -   year_b: 2000
+    },
+-   "user_settings":{
+    -   theme: "light",
+    -   view_type: 0,
+    }
+}
+```
 
 ### Calendar
 
 Technically, most important part you use to print the calendar on the screen is function **.draw()**. Then you call it from the
 
 ```markdown
-this function will draw the calendar based on user preferences. \*
 _ option = {
 _ target : "#id|.class" //(mandatory) for id use #id | for class use .class
 _ type : "calendar-type" //(optional) values: "day|month" (default "day")

@@ -2,7 +2,7 @@
     "semi": true,
     "tabWidth": 4,
     "jsxBracketSameLine": false,
-    "printWidth": 70,
+    "printWidth": 90,
     "editorconfig": true,
     "singleQuote": true
 }
