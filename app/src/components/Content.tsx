@@ -12,6 +12,10 @@ const Content: React.FC = () => {
   return (
     <div className="content">
       <Routes>
+        {/* Добавляем начальный маршрут для "/" */}
+        <Route path="/" element={<Navigate to="/home" />} />
+
+        {/* Остальные маршруты */}
         <Route path="/home" element={<Home />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/todo" element={<Todo />} />

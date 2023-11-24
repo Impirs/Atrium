@@ -8,12 +8,16 @@ import { showWhatLeft } from "../pages/dyncal";
 import { showSchedule } from "../pages/schedule";
 import { create } from 'domain';
 
+interface Options {
+    contains: string;
+    to: string;
+    size?: 'one-one' | 'one-two' | 'two-one' | 'two-two';
+    event?: 'next' | 'custom';
+    show?: 'tod' | 'tom' | 'tod-tom';
+}
+
 interface WidgetProps {
-    contains: string,
-    to: string,
-    size?: 'one-one' | 'one-two' | 'two-one' | 'two-two',
-    event?: 'next' | 'custom',
-    show?: 'tod' | 'tom' | 'tod-tom',
+    options: Options;
 }
 
 interface AddBtnProps {
@@ -21,11 +25,11 @@ interface AddBtnProps {
 }
 
 // Widget itself and what can it contains
-const Widget: React.FC<WidgetProps> = ({ contains, to, size, event, show }) => {
+const Widget: React.FC<WidgetProps> = ({ options }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(to);
+        navigate(options.to);
     };
 
     useEffect(() => {
@@ -33,41 +37,41 @@ const Widget: React.FC<WidgetProps> = ({ contains, to, size, event, show }) => {
 
         if (!widgetContainer) return;
 
-        if (contains === 'calendar' && size === 'two-two') {
+        if (options.contains === 'calendar' && options.size === 'two-two') {
             drawCalendar({
                 target: widgetContainer,
                 type: 'month',
                 highlighttoday: true,
                 prevnextbutton: 'hide'
             });
-        } else if (contains === 'calendar' && size === 'one-one') {
+        } else if (options.contains === 'calendar' && options.size === 'one-one') {
             drawCalendar({
                 target: widgetContainer,
                 type: 'day',
             });
-        } else if (contains === 'image') {
+        } else if (options.contains === 'image') {
             showImage({
                 target: widgetContainer,
-                size: size,
+                size: options.size,
             });
-        } else if (contains === 'todo') {
+        } else if (options.contains === 'todo') {
             showProgress({
                 target: widgetContainer,
                 // firstly just a one-one version
             })
-        } else if (contains === 'daysTill') {
+        } else if (options.contains === 'bigDay') {
             showWhatLeft({
                 target: widgetContainer,
-                event: event,
+                event: options.event,
             })
-        } else if (contains === 'schedule') {
+        } else if (options.contains === 'schedule') {
             showSchedule({
                 target: widgetContainer,
-                show: show
+                show: options.show
             })
         }
 
-    }, [ contains, size ]);
+    }, [ options ]);
 
     return (
         <button className="custom-widget" onClick={handleClick}>
@@ -78,12 +82,20 @@ const Widget: React.FC<WidgetProps> = ({ contains, to, size, event, show }) => {
 
 const AddBtn: React.FC<AddBtnProps> = ({ imageUrl }) => {
     const [ isExpanded, setExpanded ] = useState(false);
+    const [ options, setOptions ] = useState<Options>({
+        contains: '',
+        to: '',
+    });
 
     const handleClick = () => {
         setExpanded(!isExpanded);
     };
 
-    const choose = () => {
+    const choose = (newOptions: Partial<Options>) => {
+        setOptions((prevOptions) => ({ ...prevOptions, ...newOptions }));
+    };
+
+    const creat = () => {
 
     }
 
@@ -97,33 +109,42 @@ const AddBtn: React.FC<AddBtnProps> = ({ imageUrl }) => {
                     {
                         <div className="widget-menu">
                             <div className="widget-variants">
-                                <button className="choose_widget" onClick={choose}>
+                                <button className="choose_widget" onClick={() =>
+                                    choose({ contains: 'calendar', to: '../pages/Calendar' })}>
                                     <span className="widget_name">Calendar</span>
                                 </button>
-                                <button className="choose_widget" onClick={choose}>
+                                <button className="choose_widget" onClick={() =>
+                                    choose({ contains: 'image', to: './Custom_w' })}>
                                     <span className="widget_name">Image</span>
                                 </button>
-                                <button className="choose_widget" onClick={choose}>
+                                <button className="choose_widget" onClick={() =>
+                                    choose({ contains: 'todo', to: '../pages/Todo' })}>
                                     <span className="widget_name">To-do List</span>
                                 </button>
-                                <button className="choose_widget" onClick={choose}>
+                                <button className="choose_widget" onClick={() =>
+                                    choose({ contains: 'bigDay', to: '../pages/Calendar' })}>
                                     <span className="widget_name">Big Day</span>
                                 </button>
-                                <button className="choose_widget" onClick={choose}>
+                                <button className="choose_widget" onClick={() =>
+                                    choose({ contains: 'schedule', to: '../pages/schedule' })}>
                                     <span className="widget_name">Schedule</span>
                                 </button>
                             </div>
                             <div className="widget-size">
-                                <button className="two-two" onClick={choose}>
+                                <button className="two-two" onClick={() =>
+                                    choose({ size: 'two-two' })}>
                                     <span className='size'>2x2</span>
                                 </button>
-                                <button className="two-one" onClick={choose}>
+                                <button className="two-one" onClick={() =>
+                                    choose({ size: 'two-one' })}>
                                     <span className='size'>2x1</span>
                                 </button>
-                                <button className="one-two" onClick={choose}>
+                                <button className="one-two" onClick={() =>
+                                    choose({ size: 'one-two' })}>
                                     <span className='size'>1x2</span>
                                 </button>
-                                <button className="one-one" onClick={choose}>
+                                <button className="one-one" onClick={() =>
+                                    choose({ size: 'one-one' })}>
                                     <span className='size'>1x1</span>
                                 </button>
                             </div>
