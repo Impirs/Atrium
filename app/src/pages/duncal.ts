@@ -1,3 +1,5 @@
+declare var dyncal: Calendar;
+
 const calendar = document.querySelector('.calendar') as HTMLElement;
 const date = document.querySelector('.date') as HTMLElement;
 const daysContainer = document.querySelector('.days') as HTMLElement;
@@ -16,6 +18,10 @@ const addEventTitle = document.querySelector('.event-name') as HTMLInputElement;
 const addEventFrom = document.querySelector('.event-time-from') as HTMLInputElement;
 const addEventTo = document.querySelector('.event-time-to') as HTMLInputElement;
 const addEventSubmit = document.querySelector('.add-event-btn') as HTMLElement;
+
+interface Calendar {
+    draw(option: Record<string, any>): void;
+}
 
 let today = new Date();
 let activeDay: number;
@@ -50,6 +56,17 @@ const eventsArr: {
 getEvents();
 console.log(eventsArr);
 
+//otions
+function extendSource(source: any, defaults: any): any {
+    let property: string;
+    for (property in defaults) {
+        if (source.hasOwnProperty(property) === false) {
+            source[property] = defaults[property];
+        }
+    }
+    return source;
+}
+
 //function to add month and year on prev and next button
 function prevMonth() {
     month--;
@@ -57,7 +74,7 @@ function prevMonth() {
         month = 11;
         year--;
     }
-    initCalendar();
+    initCalendar(Option);
 }
 
 function nextMonth() {
@@ -66,12 +83,12 @@ function nextMonth() {
         month = 0;
         year++;
     }
-    initCalendar();
+    initCalendar(Option);
 }
 
 prev.addEventListener('click', prevMonth);
 next.addEventListener('click', nextMonth);
-initCalendar();
+//initCalendar();
 
 //function to add active on day
 function addListener() {
@@ -131,7 +148,7 @@ todayBtn.addEventListener('click', () => {
     today = new Date();
     month = today.getMonth();
     year = today.getFullYear();
-    initCalendar();
+    initCalendar(Option);
 });
 
 dateInput.addEventListener('input', (e: Event) => {
@@ -171,7 +188,7 @@ function gotoDate() {
         ) {
             month = monthNumber - 1;
             year = yearNumber;
-            initCalendar();
+            initCalendar(Option);
             return;
         }
     }
@@ -193,14 +210,14 @@ function updateEvents(date: number) {
         if (date === event.day && month + 1 === event.month && year === event.year) {
             event.events.forEach((event) => {
                 events += `<div class="event">
-            <div class="title">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title">${event.title}</h3>
-            </div>
-            <div class="event-time">
-              <span class="event-time">${event.time}</span>
-            </div>
-        </div>`;
+                   <div class="title">
+                       <i class="fas fa-circle"></i>
+                       <h3 class="event-title">${event.title}</h3>
+                   </div>
+                   <div class="event-time">
+                       <span class="event-time">${event.time}</span>
+                   </div>
+               </div>`;
             });
         }
     });
@@ -232,26 +249,6 @@ document.addEventListener('click', (e) => {
 addEventTitle.addEventListener('input', (e) => {
     addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
-
-function defineProperty() {
-    var osccred = document.createElement('div');
-    osccred.innerHTML =
-        "A Project By <a href='https://www.youtube.com/channel/UCiUtBDVaSmMGKxg1HYeK-BQ' target=_blank>Open Source Coding</a>";
-    osccred.style.position = 'absolute';
-    osccred.style.bottom = '0';
-    osccred.style.right = '0';
-    osccred.style.fontSize = '10px';
-    osccred.style.color = '#ccc';
-    osccred.style.fontFamily = 'sans-serif';
-    osccred.style.padding = '5px';
-    osccred.style.background = '#fff';
-    osccred.style.borderTopLeftRadius = '5px';
-    osccred.style.borderBottomRightRadius = '5px';
-    osccred.style.boxShadow = '0 0 5px #ccc';
-    document.body.appendChild(osccred);
-}
-
-defineProperty();
 
 //allow only time in eventtime from and to
 addEventFrom.addEventListener('input', (e) => {
@@ -359,6 +356,7 @@ eventsContainer.addEventListener('click', (e: MouseEvent) => {
     const targetElement = e.target as HTMLElement;
 
     if (targetElement && targetElement.classList.contains('event')) {
+        // eslint-disable-next-line no-restricted-globals
         if (confirm('Are you sure you want to delete this event?')) {
             const eventTitle = targetElement.children[0].children[1].innerHTML;
             eventsArr.forEach((event) => {
@@ -415,9 +413,10 @@ function convertTime(time: string) {
     return time;
 }
 
-//function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
-function initCalendar() {
-    const firstDay = new Date(year, month, 1);
+//function to add days in days with class day and prev-date next-date
+// on previous month and next month days and active on today
+function initCalendar(option: Record<string, any>): void {
+    const firstDay = new Date(year, month, 0);
     const lastDay = new Date(year, month + 1, 0);
     const prevLastDay = new Date(year, month, 0);
     const prevDays = prevLastDay.getDate();
@@ -468,3 +467,23 @@ function initCalendar() {
     daysContainer.innerHTML = days;
     addListener();
 }
+
+(dyncal as any).draw = function (option: Record<string, any>): boolean {
+    if (option === undefined) {
+        console.error('Option missing');
+        return false;
+    }
+
+    const defaults = {
+        start: 0,
+    } as const;
+
+    // extend user options with predefined options
+    option = extendSource(option, defaults);
+    const result = initCalendar(option);
+
+    // assuming drawCalendar returns a boolean, update as needed
+    return result === undefined ? false : result;
+};
+
+export const drawCalendar = (dyncal as any).draw;

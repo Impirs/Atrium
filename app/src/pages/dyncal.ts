@@ -124,10 +124,7 @@ interface CalendarOption {
      * @param object option this is the settings object
      * @return html
      */
-    function createMonthTable(
-        data: any,
-        option: any
-    ): HTMLTableElement {
+    function createMonthTable(data: any, option: any): HTMLTableElement {
         let table: HTMLTableElement,
             tr: HTMLTableRowElement,
             td: HTMLTableCellElement,
@@ -192,20 +189,14 @@ interface CalendarOption {
                     data.today.monthIndex === data.monthIndex &&
                     option.highlighttoday === true
                 ) {
-                    td.setAttribute(
-                        'class',
-                        'dyncalendar-today-date'
-                    );
+                    td.setAttribute('class', 'dyncalendar-today-date');
                 }
                 if (
                     option.date === count &&
                     option.month === data.monthIndex &&
                     option.highlighttargetdate === true
                 ) {
-                    td.setAttribute(
-                        'class',
-                        'dyncalendar-target-date'
-                    );
+                    td.setAttribute('class', 'dyncalendar-target-date');
                 }
                 count++;
                 tr.appendChild(td);
@@ -221,10 +212,7 @@ interface CalendarOption {
      * @param object option this is the settings object
      * @return html
      */
-    function drawCalendarMonthTable(
-        data: any,
-        option: any
-    ): HTMLDivElement {
+    function drawCalendarMonthTable(data: any, option: any): HTMLDivElement {
         let table: HTMLTableElement,
             div: HTMLDivElement,
             container: HTMLDivElement,
@@ -233,10 +221,7 @@ interface CalendarOption {
         table = createMonthTable(data, option);
         //calendar container
         container = document.createElement('div');
-        container.setAttribute(
-            'class',
-            'dyncalendar-month-container'
-        );
+        container.setAttribute('class', 'dyncalendar-month-container');
         //-------------------------- Header ------------------
         //header div
         div = document.createElement('div');
@@ -245,10 +230,7 @@ interface CalendarOption {
         //prev button
         if (option.prevnextbutton === 'show') {
             elem = document.createElement('span');
-            elem.setAttribute(
-                'class',
-                'dyncalendar-prev-next-btn prev-btn'
-            );
+            elem.setAttribute('class', 'dyncalendar-prev-next-btn prev-btn');
             elem.setAttribute('data-date', option.date);
             elem.setAttribute('data-month', option.month);
             elem.setAttribute('data-year', option.year);
@@ -270,10 +252,7 @@ interface CalendarOption {
         //next button
         if (option.prevnextbutton === 'show') {
             elem = document.createElement('span');
-            elem.setAttribute(
-                'class',
-                'dyncalendar-prev-next-btn next-btn'
-            );
+            elem.setAttribute('class', 'dyncalendar-prev-next-btn next-btn');
             elem.setAttribute('data-date', option.date);
             elem.setAttribute('data-month', option.month);
             elem.setAttribute('data-year', option.year);
@@ -302,9 +281,7 @@ interface CalendarOption {
      * @return html
      */
     function drawCalendarDay(data: any, option: any): HTMLDivElement {
-        let div: HTMLDivElement,
-            container: HTMLDivElement,
-            elem: HTMLSpanElement;
+        let div: HTMLDivElement, container: HTMLDivElement, elem: HTMLSpanElement;
         //calendar container
         container = document.createElement('div');
         container.setAttribute('class', 'dyncalendar-day-container');
@@ -387,11 +364,7 @@ interface CalendarOption {
      * @param integer date      1-31 (optional)
      * @return boolean|object    if error return false, else calendar detail
      */
-    function getCalendar(
-        year?: number,
-        month?: number,
-        date?: number
-    ): any {
+    function getCalendar(year?: number, month?: number, date?: number): any {
         let dateObj = new Date(),
             dateString: string[],
             result: any = {},
@@ -468,27 +441,14 @@ interface CalendarOption {
             if (
                 targetDomObject &&
                 targetDomObject.classList &&
-                targetDomObject.classList.contains(
-                    'dyncalendar-prev-next-btn'
-                )
+                targetDomObject.classList.contains('dyncalendar-prev-next-btn')
             ) {
-                date = parseInt(
-                    targetDomObject.getAttribute('data-date') || '0',
-                    10
-                );
-                month = parseInt(
-                    targetDomObject.getAttribute('data-month') || '0',
-                    10
-                );
-                year = parseInt(
-                    targetDomObject.getAttribute('data-year') || '0',
-                    10
-                );
+                date = parseInt(targetDomObject.getAttribute('data-date') || '0', 10);
+                month = parseInt(targetDomObject.getAttribute('data-month') || '0', 10);
+                year = parseInt(targetDomObject.getAttribute('data-year') || '0', 10);
                 btn = targetDomObject.getAttribute('data-btn');
                 option = JSON.parse(
-                    targetDomObject.parentElement?.getAttribute(
-                        'data-option'
-                    ) || '{}'
+                    targetDomObject.parentElement?.getAttribute('data-option') || '{}'
                 );
 
                 if (btn === 'prev') {
@@ -515,14 +475,10 @@ interface CalendarOption {
             if (
                 targetDomObject &&
                 targetDomObject.classList &&
-                targetDomObject.classList.contains(
-                    'dyncalendar-span-month-year'
-                )
+                targetDomObject.classList.contains('dyncalendar-span-month-year')
             ) {
                 option = JSON.parse(
-                    targetDomObject.parentElement?.getAttribute(
-                        'data-option'
-                    ) || '{}'
+                    targetDomObject.parentElement?.getAttribute('data-option') || '{}'
                 );
                 dateObj = new Date();
                 option.date = dateObj.getDate();
@@ -557,9 +513,7 @@ interface CalendarOption {
      * @return boolean                  true if success, false otherwise
      */
 
-    (dyncalendar as any).draw = function (
-        option: Record<string, any>
-    ): boolean {
+    (dyncalendar as any).draw = function (option: Record<string, any>): boolean {
         if (option === undefined) {
             console.error('Option missing');
             return false;
@@ -611,26 +565,15 @@ interface CalendarOption {
         switch (option.type) {
             case 'day':
                 //get calendar detail
-                calendar = getCalendar(
-                    option.year,
-                    option.month,
-                    option.date
-                );
+                calendar = getCalendar(option.year, option.month, option.date);
                 //get calendar html
                 calendarHTML = drawCalendarDay(calendar, option);
                 break;
             case 'month':
                 //get calendar detail
-                calendar = getCalendar(
-                    option.year,
-                    option.month,
-                    option.date
-                );
+                calendar = getCalendar(option.year, option.month, option.date);
                 //get calendar html
-                calendarHTML = drawCalendarMonthTable(
-                    calendar,
-                    option
-                );
+                calendarHTML = drawCalendarMonthTable(calendar, option);
                 break;
             default:
                 global.console.error('Invalid type');
@@ -642,14 +585,10 @@ interface CalendarOption {
             const targetElement = document.getElementById(targetElem);
             if (targetElement) {
                 removeAllChildren(targetElement);
-                targetElement.appendChild(
-                    calendarHTML.cloneNode(true)
-                );
+                targetElement.appendChild(calendarHTML.cloneNode(true));
             }
         } else if (targetedElementBy === 'class') {
-            const elements = document.querySelectorAll(
-                `.${targetElem}`
-            );
+            const elements = document.querySelectorAll(`.${targetElem}`);
             elements.forEach((element: Element) => {
                 removeAllChildren(element as HTMLElement);
                 (element as HTMLElement).appendChild(
