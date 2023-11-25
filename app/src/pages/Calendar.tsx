@@ -3,7 +3,6 @@ import './css/Calendar.css';
 
 import React, { useEffect } from "react";
 import { drawCalendar } from "./dyncal";
-// import { drawCalendar } from "./duncal";
 
 const Calendar: React.FC = () => {
   useEffect(() => {

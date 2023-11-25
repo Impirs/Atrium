@@ -28,7 +28,7 @@ function createMainWindow() {
 
 	mainWindow.setIcon('./assets/Atrium_2_64.png');
 
-	//mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	const startUrl = url.format({
 		pathname: path.join(__dirname, './app/build/index.html'),

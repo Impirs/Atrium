@@ -1,13 +1,14 @@
 declare var dyncalendar: Dyncalendar;
+declare var occasion: Occasion;
 
 interface Dyncalendar {
     draw(option: Record<string, any>): boolean;
     //showDay(option: Record<string, any>): boolean;
-    //data: Event[];
+    //data: Occasion[];
 }
 
-interface Event {
-    data: string;
+interface Occasion {
+    show(option: Record<string, any>): boolean;
 }
 
 interface MonthName {
@@ -613,3 +614,4 @@ interface CalendarOption {
 
 //export functions you will need in other components
 export const drawCalendar = (dyncalendar as any).draw;
+//export const showBigday = (occasion as any).show;

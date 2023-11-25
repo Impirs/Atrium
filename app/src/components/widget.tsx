@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { drawSchedule } from "../pages/schedule";
 import { drawCalendar } from "../pages/dyncal";
-import { showImage } from "./Custom_w";
-import { showProgress } from "../pages/Todo";
-import { showWhatLeft } from "../pages/dyncal";
-import { showSchedule } from "../pages/schedule";
+//import { showBigday } from "../pages/dyncal"; //Error
+import { showProgress } from "../pages/todo";
+import { Image } from "./Custom_w";
 import { create } from 'domain';
 
 interface Options {
@@ -50,9 +50,10 @@ const Widget: React.FC<WidgetProps> = ({ options }) => {
                 type: 'day',
             });
         } else if (options.contains === 'image') {
-            showImage({
+            Image({
                 target: widgetContainer,
                 size: options.size,
+                // Не доделано, нужно добавить подкачку изображением выбором из файлов
             });
         } else if (options.contains === 'todo') {
             showProgress({
@@ -60,12 +61,12 @@ const Widget: React.FC<WidgetProps> = ({ options }) => {
                 // firstly just a one-one version
             })
         } else if (options.contains === 'bigDay') {
-            showWhatLeft({
-                target: widgetContainer,
-                event: options.event,
-            })
+            // showBigday({
+            //     target: widgetContainer,
+            //     event: options.event,
+            // })
         } else if (options.contains === 'schedule') {
-            showSchedule({
+            drawSchedule({
                 target: widgetContainer,
                 show: options.show
             })
@@ -94,10 +95,6 @@ const AddBtn: React.FC<AddBtnProps> = ({ imageUrl }) => {
     const choose = (newOptions: Partial<Options>) => {
         setOptions((prevOptions) => ({ ...prevOptions, ...newOptions }));
     };
-
-    const creat = () => {
-
-    }
 
     return (
         <div className={`button-container ${isExpanded ? 'expanded' : ''}`}>
