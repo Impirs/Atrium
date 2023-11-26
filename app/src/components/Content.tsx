@@ -12,7 +12,7 @@ const Content: React.FC = () => {
   return (
     <div className="content">
       <Routes>
-        {/* <Route path="/" element={<Navigate to="/home" />} /> */}
+        <Route path="/" element={<Navigate to="/home" />} />
 
         <Route path="/home" element={<Home />} />
         <Route path="/calendar" element={<Calendar />} />

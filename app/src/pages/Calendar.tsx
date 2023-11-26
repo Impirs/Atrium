@@ -2,14 +2,10 @@ import './css/default.css';
 import './css/Calendar.css';
 
 import React, { useEffect } from "react";
-import { drawCalendar } from "./dyncal";
+import { drawCalendar } from "../pages/dyncal";
 
 const Calendar: React.FC = () => {
   useEffect(() => {
-    // drawCalendar({
-    //   target: '#maincal',
-    //   starts: 0,
-    // });
     drawCalendar({
       target: '#monthcal',
       type: 'month',

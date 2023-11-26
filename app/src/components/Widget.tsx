@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { drawSchedule } from "../pages/schedule";
 import { drawCalendar } from "../pages/dyncal";
-//import { showBigday } from "../pages/dyncal"; //Error
+import { showBigday } from "../pages/events"; //Error
 import { showProgress } from "../pages/todo";
 import { Image } from "./Custom_w";
 import { create } from 'domain';
@@ -61,10 +61,10 @@ const Widget: React.FC<WidgetProps> = ({ options }) => {
                 // firstly just a one-one version
             })
         } else if (options.contains === 'bigDay') {
-            // showBigday({
-            //     target: widgetContainer,
-            //     event: options.event,
-            // })
+            showBigday({
+                target: widgetContainer,
+                event: options.event,
+            })
         } else if (options.contains === 'schedule') {
             drawSchedule({
                 target: widgetContainer,

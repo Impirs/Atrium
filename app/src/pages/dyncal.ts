@@ -1,14 +1,9 @@
 declare var dyncalendar: Dyncalendar;
-declare var occasion: Occasion;
 
 interface Dyncalendar {
     draw(option: Record<string, any>): boolean;
     //showDay(option: Record<string, any>): boolean;
-    //data: Occasion[];
-}
-
-interface Occasion {
-    show(option: Record<string, any>): boolean;
+    //data: event[];
 }
 
 interface MonthName {
@@ -66,6 +61,7 @@ interface CalendarOption {
     'use strict';
     const //this will be used by the user.
         dyncalendar: any = {},
+        dynevent: any = {},
         //window document
         document = global.document,
         //najmanja godina, koju mozete koristiti
@@ -614,4 +610,3 @@ interface CalendarOption {
 
 //export functions you will need in other components
 export const drawCalendar = (dyncalendar as any).draw;
-//export const showBigday = (occasion as any).show;
