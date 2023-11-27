@@ -468,7 +468,7 @@ function initCalendar(option: Record<string, any>): void {
     addListener();
 }
 
-(dyncal as any).draw = function (option: Record<string, any>): boolean {
+export const draw = function (option: Record<string, any>): boolean {
     if (option === undefined) {
         console.error('Option missing');
         return false;
@@ -485,5 +485,3 @@ function initCalendar(option: Record<string, any>): void {
     // assuming drawCalendar returns a boolean, update as needed
     return result === undefined ? false : result;
 };
-
-export const drawCalendar = (dyncal as any).draw;

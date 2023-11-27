@@ -1,0 +1,9 @@
+{
+    "view_settings": {
+        "theme": 0, // default
+        "lang": "eng"
+    },
+    "home_info": {
+        "widgets_id": [1, 2, 3]
+    }
+}

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { drawSchedule } from "../pages/schedule";
-import { drawCalendar } from "../pages/dyncal";
+// import { showCalendar } from "../pages/Calendar_lib";
+import { draw } from '../pages/calendar_lib'
 import { showBigday } from "../pages/events"; //Error
 import { showProgress } from "../pages/todo";
 import { Image } from "./Custom_w";
@@ -38,14 +39,16 @@ const Widget: React.FC<WidgetProps> = ({ options }) => {
         if (!widgetContainer) return;
 
         if (options.contains === 'calendar' && options.size === 'two-two') {
-            drawCalendar({
+            //showCalendar({
+            draw({
                 target: widgetContainer,
                 type: 'month',
                 highlighttoday: true,
                 prevnextbutton: 'hide'
             });
         } else if (options.contains === 'calendar' && options.size === 'one-one') {
-            drawCalendar({
+            //showCalendar({
+            draw({
                 target: widgetContainer,
                 type: 'day',
             });

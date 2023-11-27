@@ -23,22 +23,39 @@ _An application for tracking your daily and long-term tasks._
 
 ```markdown
 {
--   "user_login": {
-    -   mail: "usermail@gmail.com",
-    -   password: "password",
-    -   autologin: 0,
-    -   id: aaaa0000
+    "user_info": {
+        "name": "admin",
+        "mail": "@gmail.com",
+        "password": "QWerty1234",
+        "created_at": "08:33 27.11.23",
+        "status": 1,
+        "auto": 0
     },
--    "user_info":{
-    -   name: "Name",
-    -   surname: "Surname",
-    -   day_b: 1,
-    -   month_b: 1,
-    -   year_b: 2000
+    "user_events": {
+        "My birthday": {
+            "day": 17, // 0.1 => every monday and so on
+            "month": 8, // 1 => every month
+            "year": 1, // 1 => every year
+            "show_from": 0, // 0 => chosen day
+            "show_untill": 0, // 1 => infinity, 0 => once
+            "time_hours": 24,
+            "time_minutes": 0,
+            "disc": "This is my birthday"
+        }
     },
--   "user_settings":{
-    -   theme: "light",
-    -   view_type: 0,
+    "user_widgets": {
+        "1": {
+            "contains": "calendar",
+            "size": "two-two"
+        },
+        "2": {
+            "contains": "budget",
+            "size": "one-two"
+        },
+        "3": {
+            "contains": "image",
+            "size": "two-one"
+        }
     }
 }
 ```
