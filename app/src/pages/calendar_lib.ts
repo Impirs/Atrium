@@ -50,70 +50,55 @@ interface CalendarOption {
     prevnextbutton?: 'show' | 'hide';
 }
 
-// (function (global: any) {
-//('use strict');
-const //this will be used by the user.
-    //dyncalendar: any = {},
-    //dynevent: any = {},
-    //window document
-    document = global.document,
-    //najmanja godina, koju mozete koristiti
-    MIN_YEAR = 1111,
-    //najveca godina, koju mozete koristiti
-    MAX_YEAR = 9999,
-    //imena mesece
-    monthName = {
-        full: [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ],
-        mmm: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-        ],
-    },
-    //name of the days
-    dayName = {
-        full: [
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-            'Sunday',
-        ],
-        d: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-        dd: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        ddd: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    };
-/*
- * this function will create month table.
- *
- * @param object data   this contains the calendar data
- * @param object option this is the settings object
- * @return html
- */
+//this will be used by the user.
+//dyncalendar: any = {},
+//dynevent: any = {},
+//window document
+const document = global.document;
+//najmanja godina, koju mozete koristiti
+const MIN_YEAR = 1111;
+//najveca godina, koju mozete koristiti
+const MAX_YEAR = 9999;
+//imena mesece
+const monthName = {
+    full: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ],
+    mmm: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+    ],
+};
+//name of the days
+const dayName = {
+    full: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    d: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    dd: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+    ddd: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+};
+
+// ================================== HTML =================================== //
 function createMonthTable(data: any, option: any): HTMLTableElement {
     let table: HTMLTableElement,
         tr: HTMLTableRowElement,
@@ -145,6 +130,7 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
     while (value <= 6) {
         td = document.createElement('td');
         td.innerHTML = count.toString();
+
         if (
             data.today.date === count &&
             data.today.monthIndex === data.monthIndex &&
@@ -195,14 +181,8 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
     }
     return table;
 }
-/*
- * this function will draw Calendar Month Table
- *
- * @param object data   this contains the calendar data
- * @param object option this is the settings object
- * @return html
- */
-function drawCalendarMonthTable(data: any, option: any): HTMLDivElement {
+
+function drawCalendarMonth(data: any, option: any): HTMLDivElement {
     let table: HTMLTableElement,
         div: HTMLDivElement,
         container: HTMLDivElement,
@@ -263,13 +243,7 @@ function drawCalendarMonthTable(data: any, option: any): HTMLDivElement {
     //return container
     return container;
 }
-/*
- * this function will draw Calendar Day
- *
- * @param object data   this contains the calendar data
- * @param object option this is the settings object
- * @return html
- */
+
 function drawCalendarDay(data: any, option: any): HTMLDivElement {
     let div: HTMLDivElement, container: HTMLDivElement, elem: HTMLSpanElement;
     //calendar container
@@ -328,13 +302,15 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {
     //return container
     return container;
 }
-/*
- * this function will extend source object with defaults object.
- *
- * @param object source     this is the source object
- * @param object defaults   this is the default object
- * @return object
- */
+
+function drawCalendarFull(data: any, options: any): HTMLDivElement {
+    let div: HTMLDivElement, container: HTMLDivElement, elem: HTMLSpanElement;
+    container = document.createElement('div');
+
+    return container;
+}
+
+// =============================== FUNCTIONS ================================= //
 function extendSource(source: any, defaults: any): any {
     let property: string;
     for (property in defaults) {
@@ -344,16 +320,7 @@ function extendSource(source: any, defaults: any): any {
     }
     return source;
 }
-/*
- * This function will return calendar detail.
- *
- * @param integer year        1111-9999 (optional) if not set will consider
- *                          the current year.
- * @param integer month        0-11 (optional) 0 = Jan, 1 = Feb, ... 11 = Dec,
- *                          if not set will consider the current month.
- * @param integer date      1-31 (optional)
- * @return boolean|object    if error return false, else calendar detail
- */
+
 function getCalendar(year?: number, month?: number, date?: number): any {
     let dateObj = new Date(),
         dateString: string[],
@@ -421,6 +388,69 @@ function getCalendar(year?: number, month?: number, date?: number): any {
     return result;
 }
 
+// ================================== DRAW =================================== //
+function drawCalendar(option: any) {
+    let //variables for creating calendar
+        calendar: any,
+        calendarHTML: any,
+        targetedElementBy = 'id',
+        targetElem: string,
+        //other variables
+        i: number,
+        len: number,
+        elemArr: HTMLCollectionOf<Element>;
+    //find target element by
+    if (option.target[0] === '#') {
+        targetedElementBy = 'id';
+    } else if (option.target[0] === '.') {
+        targetedElementBy = 'class';
+    }
+    targetElem = option.target.substring(1);
+    //get calendar HTML
+    switch (option.type) {
+        case 'day':
+            //get calendar detail
+            calendar = getCalendar(option.year, option.month, option.date);
+            //get calendar html
+            calendarHTML = drawCalendarDay(calendar, option);
+            break;
+        case 'month':
+            //get calendar detail
+            calendar = getCalendar(option.year, option.month, option.date);
+            //get calendar html
+            calendarHTML = drawCalendarMonth(calendar, option);
+            break;
+        default:
+            global.console.error('Invalid type');
+            return false;
+    }
+
+    //draw calendar
+    if (targetedElementBy === 'id') {
+        const targetElement = document.getElementById(targetElem);
+        if (targetElement) {
+            removeAllChildren(targetElement);
+            targetElement.appendChild(calendarHTML.cloneNode(true));
+        }
+    } else if (targetedElementBy === 'class') {
+        const elements = document.querySelectorAll(`.${targetElem}`);
+        elements.forEach((element: Element) => {
+            removeAllChildren(element as HTMLElement);
+            (element as HTMLElement).appendChild(
+                calendarHTML.cloneNode(true) as HTMLElement
+            );
+        });
+    }
+
+    // Функция для удаления всех дочерних элементов
+    function removeAllChildren(element: HTMLElement) {
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+    }
+}
+
+// ================================= CLICKS ================================== //
 function onClick() {
     document.body.onclick = function (e: MouseEvent | any) {
         e = e || window.event;
@@ -479,29 +509,8 @@ function onClick() {
     };
 }
 
-//------------------------------ dyncalendar.draw() ----------------------
-/*
- * this function will draw the calendar based on user preferences.
- *
- * option = {
- *  target : "#id|.class"           //(mandatory) for id use #id | for class use .class
- *  type : "calendar-type"          //(optional) values: "day|month" (default "day")
- *  month : "integer"               //(optional) value 0-11, where 0 = January, 11 = December
- *  year : "integer"                //(optional) example 1990. (default current year)
- *  date : "integer"                //(optional) example 1-31. (default current date)
- *  monthformat : "full"            //(optional) values: "mmm|full" (default "full")
- *  dayformat : "full"              //(optional) values: "ddd|full" (default "full")
- *  highlighttoday : boolean        //(optional) (default false) if true will highlight
- *                                    today's date
- *  highlighttargetdate : boolean   //(optional) (default false) if true will highlight
- *                                    targeted date of the month year
- *  prevnextbutton : "hide"         //(optional) (default "hide") (values: "show|hide")
- *                                    if set to "show" it will show the nav button (prev|next)
- * }
- *
- * @param object option             user preferences
- * @return boolean                  true if success, false otherwise
- */
+// ================================= EXPORT ================================== //
+onClick();
 
 export const draw = function (option: Record<string, any>): boolean {
     if (option === undefined) {
@@ -520,6 +529,7 @@ export const draw = function (option: Record<string, any>): boolean {
         highlighttoday: false,
         highlighttargetdate: false,
         prevnextbutton: 'hide',
+        activeState: false,
     } as const;
 
     // extend user options with predefined options
@@ -529,80 +539,3 @@ export const draw = function (option: Record<string, any>): boolean {
     // assuming drawCalendar returns a boolean, update as needed
     return result === undefined ? false : result;
 };
-
-//------------------------------ dyncalendar.draw() ends here ------------
-/*
- * this function will draw the calendar inside the target container.
- */
-function drawCalendar(option: any) {
-    let //variables for creating calendar
-        calendar: any,
-        calendarHTML: any,
-        targetedElementBy = 'id',
-        targetElem: string,
-        //other variables
-        i: number,
-        len: number,
-        elemArr: HTMLCollectionOf<Element>;
-    //find target element by
-    if (option.target[0] === '#') {
-        targetedElementBy = 'id';
-    } else if (option.target[0] === '.') {
-        targetedElementBy = 'class';
-    }
-    targetElem = option.target.substring(1);
-    //get calendar HTML
-    switch (option.type) {
-        case 'day':
-            //get calendar detail
-            calendar = getCalendar(option.year, option.month, option.date);
-            //get calendar html
-            calendarHTML = drawCalendarDay(calendar, option);
-            break;
-        case 'month':
-            //get calendar detail
-            calendar = getCalendar(option.year, option.month, option.date);
-            //get calendar html
-            calendarHTML = drawCalendarMonthTable(calendar, option);
-            break;
-        default:
-            global.console.error('Invalid type');
-            return false;
-    }
-
-    //draw calendar
-    if (targetedElementBy === 'id') {
-        const targetElement = document.getElementById(targetElem);
-        if (targetElement) {
-            removeAllChildren(targetElement);
-            targetElement.appendChild(calendarHTML.cloneNode(true));
-        }
-    } else if (targetedElementBy === 'class') {
-        const elements = document.querySelectorAll(`.${targetElem}`);
-        elements.forEach((element: Element) => {
-            removeAllChildren(element as HTMLElement);
-            (element as HTMLElement).appendChild(
-                calendarHTML.cloneNode(true) as HTMLElement
-            );
-        });
-    }
-
-    // Функция для удаления всех дочерних элементов
-    function removeAllChildren(element: HTMLElement) {
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
-        }
-    }
-}
-//events
-onClick();
-
-//attach to global window object
-//global.dyncalendar = dyncalendar;
-// })(typeof window !== 'undefined' ? window : this);
-
-//export functions you will need in other components
-//const showBigday = (dynevent as any).show;
-// const showCalendar = dyncalendar.draw;
-// export { showCalendar };
-//, showBigday

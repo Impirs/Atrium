@@ -12,12 +12,14 @@ const Calendar: React.FC = () => {
       target: '#monthcal',
       type: 'month',
       highlighttoday: true,
-      prevnextbutton: 'show'
+      prevnextbutton: 'show',
+      activeState: true
     });
     // showCalendar({
     draw({
       target: '#daycal',
       type: 'day',
+      activeState: true
     });
   }, []);
 

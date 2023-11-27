@@ -62,25 +62,80 @@ _An application for tracking your daily and long-term tasks._
 
 ### Calendar
 
-Technically, most important part you use to print the calendar on the screen is function **.draw()**. Then you call it from the
+Let's have a look on functions and their options in the calendar part.
+At this moment this module has 2 files in work, 1 in development and non connected data storage and manager.
+So, first thing we need to observe: is the "calendar's brain" - calendar_lib.ts:
 
-```markdown
-_ option = {
-_ target : "#id|.class" //(mandatory) for id use #id | for class use .class
-_ type : "calendar-type" //(optional) values: "day|month" (default "day")
-_ month : "integer" //(optional) value 0-11, where 0 = January, 11 = December
-_ year : "integer" //(optional) example 1990. (default current year)
-_ date : "integer" //(optional) example 1-31. (default current date)
-_ monthformat : "full" //(optional) values: "mmm|full" (default "full")
-_ dayformat : "full" //(optional) values: "ddd|full" (default "full")
-_ highlighttoday : boolean //(optional) (default false) if true will highlight
-_ today's date
-_ highlighttargetdate : boolean //(optional) (default false) if true will highlight
-_ targeted date of the month year
-_ prevnextbutton : "hide" //(optional) (default "hide") (values: "show|hide")
-_ if set to "show" it will show the nav button (prev|next)
-_ }
-_
-_ @param object option user preferences
-_ @return boolean true if success, false otherwise
+```typescript
+
+@param object data   this contains the calendar data
+@param object option this is the settings object
+@return html
+
+function createMonthTable(data: any, option: any): HTMLTableElement
+```
+
+```typescript
+
+@param object data   this contains the calendar data
+@param object option this is the settings object
+@return html
+
+function drawCalendarMonthTable(data: any, option: any): HTMLDivElement {}
+```
+
+```typescript
+
+@param object data   this contains the calendar data
+@param object option this is the settings object
+@return html
+
+function drawCalendarDay(data: any, option: any): HTMLDivElement {}
+```
+
+```typescript
+
+@param object source     this is the source object
+@param object defaults   this is the default object
+@return object
+
+function extendSource(source: any, defaults: any): any {}
+```
+
+```typescript
+
+@param integer year                 //1111-9999 (optional) if not set will consider
+                                    //the current year.
+@param integer month                //0-11 (optional) 0 = Jan, 1 = Feb, ... 11 = Dec,
+                                    //if not set will consider the current month.
+@param integer date                 //1-31 (optional)
+@return boolean|object              //if error return false, else calendar detail
+
+function getCalendar(year?: number, month?: number, date?: number): any {}
+```
+
+```typescript
+
+option = {
+    target : "#id|.class"           //(mandatory) for id use #id | for class use .class
+    type : "calendar-type"          //(optional) values: "day|month" (default "day")
+    month : "integer"               //(optional) value 0-11, where 0 = January, 11 = December
+    year : "integer"                //(optional) example 1990. (default current year)
+    date : "integer"                //(optional) example 1-31. (default current date)
+    monthformat : "full"            //(optional) values: "mmm|full" (default "full")
+    dayformat : "full"              //(optional) values: "ddd|full" (default "full")
+    highlighttoday : boolean        //(optional) (default false) if true will highlight
+                                    //today's date
+    highlighttargetdate : boolean   //(optional) (default false) if true will highlight
+                                    //targeted date of the month year
+    prevnextbutton : "hide"         //(optional) (default "hide") (values: "show|hide")
+                                    //if set to "show" it will show the nav button (prev|next)
+    activeState : boolean           //(optional) (default false) if true dates will have an
+                                    //"active" state to have an opportunity to choose and show
+                                    //digital information in day calendar
+}
+@param object option             user preferences
+@return boolean                  true if success, false otherwise
+
+export const draw = function (option: Record<string, any>): boolean{}
 ```

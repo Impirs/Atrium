@@ -11,7 +11,9 @@
         "My birthday": {
             "day": 17,
             "month": 8,
-            "year": 1,
+            "year": 2002,
+            "type": "Birthdays",
+            "repeat": 1,
             "show_from": 0,
             "show_untill": 0,
             "time_hours": 24,

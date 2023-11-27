@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { drawSchedule } from "../pages/schedule";
-// import { showCalendar } from "../pages/Calendar_lib";
 import { draw } from '../pages/calendar_lib'
 import { showBigday } from "../pages/events"; //Error
 import { showProgress } from "../pages/todo";
