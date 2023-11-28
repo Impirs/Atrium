@@ -303,10 +303,116 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {
     return container;
 }
 
-function drawCalendarFull(data: any, options: any): HTMLDivElement {
-    let div: HTMLDivElement, container: HTMLDivElement, elem: HTMLSpanElement;
-    container = document.createElement('div');
+function drawCalendarFull(data: any, option: any): HTMLDivElement {
+    let div: HTMLDivElement,
+        container: HTMLDivElement,
+        box: HTMLDivElement,
+        table: HTMLTableElement,
+        elem: HTMLSpanElement;
+    container = document.createElement('div'); // Main container for everything
+    container.setAttribute('class', 'full-dyncalendar-container');
+    table = createMonthTable(data, option);
 
+    box = document.createElement('div'); //Container for month calendar
+    box.setAttribute('class', 'dyncalendar-month-container');
+    /* month header */ {
+        div = document.createElement('div');
+        div.setAttribute('class', 'dyncalendar-header');
+        div.setAttribute('data-option', JSON.stringify(option));
+        //prev button
+        if (option.prevnextbutton === 'show') {
+            elem = document.createElement('span');
+            elem.setAttribute('class', 'dyncalendar-prev-next-btn prev-btn');
+            elem.setAttribute('data-date', option.date);
+            elem.setAttribute('data-month', option.month);
+            elem.setAttribute('data-year', option.year);
+            elem.setAttribute('data-btn', 'prev');
+            elem.innerHTML = '&lt;';
+            //add prev button span to header div
+            div.appendChild(elem);
+        }
+        //month span
+        elem = document.createElement('span');
+        elem.setAttribute('class', 'dyncalendar-span-month-year');
+        if (option.monthformat === 'mmm') {
+            elem.innerHTML = data.monthName + ' ' + data.year;
+        } else if (option.monthformat === 'full') {
+            elem.innerHTML = data.monthNameFull + ' ' + data.year;
+        }
+        //add month span to header div
+        div.appendChild(elem);
+        //next button
+        if (option.prevnextbutton === 'show') {
+            elem = document.createElement('span');
+            elem.setAttribute('class', 'dyncalendar-prev-next-btn next-btn');
+            elem.setAttribute('data-date', option.date);
+            elem.setAttribute('data-month', option.month);
+            elem.setAttribute('data-year', option.year);
+            elem.setAttribute('data-btn', 'next');
+            elem.innerHTML = '&gt;';
+            //add prev button span to header div
+            div.appendChild(elem);
+        }
+        //add header div to container
+        box.appendChild(div);
+    }
+    /* month body */ {
+        div = document.createElement('div');
+        div.setAttribute('class', 'dyncalendar-body');
+        div.appendChild(table);
+        //add body div to container div
+        box.appendChild(div);
+    }
+
+    container.appendChild(box);
+    box = document.createElement('div'); //Container for day calendar and events
+    box.setAttribute('class', 'dyncalendar-day-events-container');
+    /* day header */ {
+        div = document.createElement('div');
+        div.setAttribute('class', 'dyncalendar-header');
+        //date span
+        elem = document.createElement('span');
+        elem.setAttribute('class', 'dyncalendar-span-date');
+        elem.innerHTML = data.date;
+        //add date span to body div
+        div.appendChild(elem);
+        //add body div to container
+        box.appendChild(div);
+    }
+    /* day body */ {
+        div = document.createElement('div');
+        div.setAttribute('class', 'dyncalendar-body');
+        //day span
+        elem = document.createElement('span');
+        elem.setAttribute('class', 'dyncalendar-span-day');
+        if (option.dayformat === 'ddd') {
+            elem.innerHTML = dayName.ddd[data.targetedDayIndex];
+        } else if (option.dayformat === 'full') {
+            elem.innerHTML = dayName.full[data.targetedDayIndex];
+        }
+        //add day span to footer div
+        div.appendChild(elem);
+        //add header div to container
+        box.appendChild(div);
+    }
+    /* day footer */ {
+        div = document.createElement('div');
+        div.setAttribute('class', 'dyncalendar-footer');
+        //month span
+        elem = document.createElement('span');
+        elem.setAttribute('class', 'dyncalendar-span-month-year');
+        if (option.monthformat === 'mmm') {
+            elem.innerHTML = data.monthName + ' ' + data.year;
+        } else if (option.monthformat === 'full') {
+            elem.innerHTML = data.monthNameFull + ' ' + data.year;
+        }
+        //add month span to footer div
+        div.appendChild(elem);
+        //add footer div to container
+        box.appendChild(div);
+    }
+    /* events array*/ {
+    }
     return container;
 }
 
