@@ -97,9 +97,18 @@ const dayName = {
     dd: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
     ddd: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 };
+const eventsArr: {
+    day: number;
+    month: number;
+    year: number;
+    events: {
+        title: string;
+        time: string;
+    }[];
+}[] = [];
 
 // ================================== HTML =================================== //
-function createMonthTable(data: any, option: any): HTMLTableElement {
+function createMonthTable(data: any, option: any, activeDates: any): HTMLTableElement {
     let table: HTMLTableElement,
         tr: HTMLTableRowElement,
         td: HTMLTableCellElement,
@@ -137,6 +146,9 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
             option.highlighttoday === true
         ) {
             td.setAttribute('class', 'dyncalendar-today-date');
+            if (option.activeState === true) {
+                td.setAttribute('active', 'true');
+            }
         }
         if (
             option.date === count &&
@@ -144,6 +156,9 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
             option.highlighttargetdate === true
         ) {
             td.setAttribute('class', 'dyncalendar-target-date');
+        }
+        if (option.activeState === true) {
+            td.setAttribute('active', 'false');
         }
         tr.appendChild(td);
         count++;
@@ -182,13 +197,13 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
     return table;
 }
 
-function drawCalendarMonth(data: any, option: any): HTMLDivElement {
+function drawCalendarMonth(data: any, option: any, activeDates: any): HTMLDivElement {
     let table: HTMLTableElement,
         div: HTMLDivElement,
         container: HTMLDivElement,
         elem: HTMLSpanElement;
     //get table
-    table = createMonthTable(data, option);
+    table = createMonthTable(data, option, activeDates);
     //calendar container
     container = document.createElement('div');
     container.setAttribute('class', 'dyncalendar-month-container');
@@ -309,10 +324,14 @@ function drawCalendarFull(data: any, option: any): HTMLDivElement {
         box: HTMLDivElement,
         table: HTMLTableElement,
         elem: HTMLSpanElement;
+
+    const activeDates: { [date: number]: boolean } = {};
+
     container = document.createElement('div'); // Main container for everything
     container.setAttribute('class', 'full-dyncalendar-container');
-    table = createMonthTable(data, option);
+    table = createMonthTable(data, option, activeDates);
 
+    // Left box
     box = document.createElement('div'); //Container for month calendar
     box.setAttribute('class', 'dyncalendar-month-container');
     /* month header */ {
@@ -357,17 +376,29 @@ function drawCalendarFull(data: any, option: any): HTMLDivElement {
         box.appendChild(div);
     }
     /* month body */ {
+        table.addEventListener('click', function (event: MouseEvent) {
+            const target = event.target as HTMLElement;
+            if (target.tagName === 'TD') {
+                const clickedDate = parseInt(target.innerHTML);
+                // Обновление состояний активности дат
+                updateActiveDates(clickedDate);
+                // Обновление содержимого календаря дня (справа)
+                updateDayCalendar(data, option, clickedDate);
+            }
+        });
+
         div = document.createElement('div');
         div.setAttribute('class', 'dyncalendar-body');
         div.appendChild(table);
         //add body div to container div
         box.appendChild(div);
     }
-
     container.appendChild(box);
+
+    // Right box
     box = document.createElement('div'); //Container for day calendar and events
     box.setAttribute('class', 'dyncalendar-day-events-container');
-    /* day header */ {
+    /* event day header */ {
         div = document.createElement('div');
         div.setAttribute('class', 'dyncalendar-header');
         //date span
@@ -379,7 +410,7 @@ function drawCalendarFull(data: any, option: any): HTMLDivElement {
         //add body div to container
         box.appendChild(div);
     }
-    /* day body */ {
+    /* event day body */ {
         div = document.createElement('div');
         div.setAttribute('class', 'dyncalendar-body');
         //day span
@@ -395,7 +426,7 @@ function drawCalendarFull(data: any, option: any): HTMLDivElement {
         //add header div to container
         box.appendChild(div);
     }
-    /* day footer */ {
+    /* event day footer */ {
         div = document.createElement('div');
         div.setAttribute('class', 'dyncalendar-footer');
         //month span
@@ -411,9 +442,39 @@ function drawCalendarFull(data: any, option: any): HTMLDivElement {
         //add footer div to container
         box.appendChild(div);
     }
-    /* events array*/ {
+    /* events */ {
     }
+
+    /* add event button */ {
+        elem = document.createElement('span');
+        elem.setAttribute('class', 'add-event-button');
+        elem.innerHTML = '+';
+        div.appendChild(elem);
+    }
+    box.appendChild(div);
+    container.appendChild(box);
     return container;
+
+    function updateActiveDates(clickedDate: number) {
+        for (const date in activeDates) {
+            if (Object.prototype.hasOwnProperty.call(activeDates, date)) {
+                activeDates[date] = false;
+            }
+        }
+        activeDates[clickedDate] = true;
+    }
+
+    // Функция для обновления календаря дня (справа)
+    function updateDayCalendar(data: any, option: any, clickedDate: number) {
+        // Получение элементов календаря дня и обновление их содержимого
+        const dayDateElement = container.querySelector('.dyncalendar-span-date');
+        const dayDayElement = container.querySelector('.dyncalendar-span-day');
+
+        if (dayDateElement && dayDayElement) {
+            dayDateElement.innerHTML = clickedDate.toString();
+            dayDayElement.innerHTML = dayName.ddd[data.targetedDayIndex];
+        }
+    }
 }
 
 // =============================== FUNCTIONS ================================= //
@@ -502,6 +563,7 @@ function drawCalendar(option: any) {
         targetedElementBy = 'id',
         targetElem: string,
         //other variables
+        activeDates: any,
         i: number,
         len: number,
         elemArr: HTMLCollectionOf<Element>;
@@ -524,7 +586,7 @@ function drawCalendar(option: any) {
             //get calendar detail
             calendar = getCalendar(option.year, option.month, option.date);
             //get calendar html
-            calendarHTML = drawCalendarMonth(calendar, option);
+            calendarHTML = drawCalendarMonth(calendar, option, activeDates);
             break;
         default:
             global.console.error('Invalid type');

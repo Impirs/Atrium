@@ -56,7 +56,7 @@ const eventsArr: {
 getEvents();
 console.log(eventsArr);
 
-//otions
+//options
 function extendSource(source: any, defaults: any): any {
     let property: string;
     for (property in defaults) {
