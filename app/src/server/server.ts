@@ -1,43 +1,106 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
-interface SettingsData {
-    user_info: any;
-    user_settings: any;
-    user_events: any[];
+const EVENTS_FILE_PATH = '../config/events.json';
+
+interface Event {
+    date: number;
+    month: number;
+    year: number;
+    title: string;
+    group: string;
 }
 
-const writeSettingsToFile = (data: SettingsData): void => {
-    const jsonSettings = JSON.stringify(data, null, 2);
-    fs.writeFileSync('../config/settings.json', jsonSettings);
-};
+export class EventManager {
+    private events: Event[] = [];
 
-const loadSettingsFromFile = (): SettingsData | null => {
-    try {
-        const rawData = fs.readFileSync('../config/settings.json', 'utf-8');
-        const settingsData: SettingsData = JSON.parse(rawData);
-        return settingsData;
-    } catch (error) {
-        console.error('Ошибка при загрузке файла настроек:', (error as Error).message);
-        return null;
+    constructor() {
+        this.loadEvents();
     }
-};
 
-// Пример использования:
-const settingsData: SettingsData = {
-    user_info: {
-        /* данные пользователя */
-    },
-    user_settings: {
-        /* настройки пользователя */
-    },
-    user_events: [
-        /* события пользователя */
-    ],
-};
+    private saveEvents() {
+        fs.writeFileSync(
+            EVENTS_FILE_PATH,
+            JSON.stringify({ events: this.events }, null, 2)
+        );
+    }
 
-writeSettingsToFile(settingsData);
+    private loadEvents() {
+        try {
+            const data = fs.readFileSync(EVENTS_FILE_PATH, 'utf-8');
+            const parsedData = JSON.parse(data);
+            if (parsedData && Array.isArray(parsedData.events)) {
+                this.events = parsedData.events;
+            }
+        } catch (error) {
+            // If the file doesn't exist or there's an error, assume an empty array of events.
+            this.events = [];
+        }
+    }
 
-const loadedSettings = loadSettingsFromFile();
-if (loadedSettings) {
-    console.log('Loaded settings:', loadedSettings);
+    createEvent(date: number, month: number, year: number, title: string, group: string) {
+        const newEvent: Event = { date, month, year, title, group };
+        this.events.push(newEvent);
+        this.saveEvents();
+    }
+
+    deleteEvent(date: number, month: number, year: number, title: string, group: string) {
+        this.events = this.events.filter(
+            (event) =>
+                !(
+                    event.date === date &&
+                    event.month === month &&
+                    event.year === year &&
+                    event.title === title &&
+                    event.group === group
+                )
+        );
+        this.saveEvents();
+    }
+
+    deleteEventsByDate(date: number, month: number, year: number) {
+        this.events = this.events.filter(
+            (event) => event.date !== date && event.month !== month && event.year !== year
+        );
+        this.saveEvents();
+    }
+
+    deleteEventsByGroup(group: string) {
+        this.events = this.events.filter((event) => event.group !== group);
+        this.saveEvents();
+    }
+
+    getEventsByGroup(group: string) {
+        return this.events.filter((event) => event.group === group);
+    }
+
+    getEventsByDate(date: number, month: number, year: number) {
+        return this.events.filter(
+            (event) => event.date === date && event.month === month && event.year === year
+        );
+    }
 }
+
+/* Example usage:
+const eventManager = new EventManager();
+
+// Create a new event
+eventManager.createEvent(29, 11, 2023, 'Example', 'Group A');
+
+// Delete an event
+eventManager.deleteEvent(29, 11, 2023, 'Example', 'Group A');
+
+// Delete events by date
+eventManager.deleteEventsByDate(29, 11, 2023);
+
+// Delete events by group
+eventManager.deleteEventsByGroup('Group A');
+
+// Get events by group
+const eventsByGroup = eventManager.getEventsByGroup('Group A');
+console.log('Events by group:', eventsByGroup);
+
+// Get events by date
+const eventsByDate = eventManager.getEventsByDate(29, 11, 2023);
+console.log('Events by date:', eventsByDate);
+
+*/
