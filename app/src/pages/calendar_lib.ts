@@ -1,6 +1,6 @@
-declare var dyncalendar: Dyncalendar;
+import { EventManager } from '../server/localserver';
 
-import { EventManager } from '../server/server';
+declare var dyncalendar: Dyncalendar;
 
 interface Dyncalendar {
     draw(option: Record<string, any>): boolean;

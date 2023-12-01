@@ -13,17 +13,19 @@
 \=======================================================================================*/
 
 const { app, BrowserWindow, Menu } = require('electron');
+const Store = require('electron-store');
 const url = require('url');
 const path = require('path');
 
+const store = new Store();
+
 function createMainWindow() {
-	Menu.setApplicationMenu(null);
+	//Menu.setApplicationMenu(null);
 
 	const mainWindow = new BrowserWindow({
 		title: 'Atrium',
 		width: 1000,
 		height: 750,
-		//webPreferences: {webSecurity: false, }
 	});
 
 	mainWindow.setIcon('./assets/Atrium_2_64.png');
@@ -39,3 +41,22 @@ function createMainWindow() {
 }
 
 app.whenReady().then(createMainWindow);
+
+// Эта часть кода не нужна, так как мы теперь используем electron-store
+// ipcMain.handle('read-file', (event, filePath, encoding) => {
+//   try {
+//     const data = store.get(filePath);
+//     return data;
+//   } catch (error) {
+//     console.error('Error:', error);
+//     return null;
+//   }
+// });
+
+// ipcMain.handle('write-file', (event, filePath, data) => {
+//   try {
+//     store.set(filePath, data);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// });

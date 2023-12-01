@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import Store from 'electron-store';
 
 const EVENTS_FILE_PATH = '../config/events.json';
 
@@ -12,27 +12,26 @@ interface Event {
 
 export class EventManager {
     private events: Event[] = [];
+    private store: Store<Event[]> = new Store();
 
-    constructor() {
-        this.loadEvents();
-    }
+    private EVENTS_STORE_KEY = 'events';
 
-    private saveEvents() {
-        fs.writeFileSync(
-            EVENTS_FILE_PATH,
-            JSON.stringify({ events: this.events }, null, 2)
-        );
-    }
-
-    private loadEvents() {
+    private async saveEvents() {
         try {
-            const data = fs.readFileSync(EVENTS_FILE_PATH, 'utf-8');
-            const parsedData = JSON.parse(data);
-            if (parsedData && Array.isArray(parsedData.events)) {
-                this.events = parsedData.events;
+            await this.store.set(this.EVENTS_STORE_KEY, this.events);
+        } catch (error) {
+            console.error('Failed to save events:', error);
+        }
+    }
+
+    private async loadEvents() {
+        try {
+            const storedEvents = await this.store.get(this.EVENTS_STORE_KEY);
+            if (storedEvents && Array.isArray(storedEvents)) {
+                this.events = storedEvents;
             }
         } catch (error) {
-            // If the file doesn't exist or there's an error, assume an empty array of events.
+            console.error('Failed to load events:', error);
             this.events = [];
         }
     }

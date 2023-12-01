@@ -7,34 +7,44 @@ import { draw } from "./calendar_lib";
 
 const Calendar: React.FC = () => {
   useEffect(() => {
-    //showCalendar({
+    //show month calendar
     draw({
       target: '#monthcal',
       type: 'month',
       highlighttoday: true,
       prevnextbutton: 'show',
-      activeState: true
     });
-    // showCalendar({
+    // show day calendar
     draw({
       target: '#daycal',
       type: 'day',
-      activeState: true
     });
+    // show full events calendar
+    draw({
+      target: '#eventcalendar',
+      type: 'full',
+      prevnextbutton: 'show',
+      highlighttoday: true,
+
+    })
   }, []);
 
   return (
     <div className="screen">
       <div className="box">
-        <div className="month">
-          <div id="monthcal"></div>
-        </div>
-        <div className="container">
-          <div id="daycal"></div>
+        <div className='eventcal'>
+          <div id='eventcalendar'></div>
         </div>
       </div>
     </div>
   );
 };
+
+// <div className="month">
+//   <div id="monthcal"></div>
+// </div>
+// <div className="container">
+//   <div id="daycal"></div>
+// </div>
 
 export default Calendar;
