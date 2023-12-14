@@ -1,3 +1,6 @@
+import '../theme.css';
+
+/*
 import Store from 'electron-store';
 
 const EVENTS_FILE_PATH = '../config/events.json';
@@ -78,6 +81,7 @@ export class EventManager {
         );
     }
 }
+*/
 
 /* Example usage:
 const eventManager = new EventManager();

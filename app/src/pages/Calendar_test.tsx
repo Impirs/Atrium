@@ -2,7 +2,7 @@ import './css/duncal.css';
 
 import React, { useEffect } from "react";
 // import { showCalendar } from "./Calendar_lib";
-import { draw } from "./calendar_lib";
+import { draw } from "../library/calendar";
 
 const Calendar: React.FC = () => {
     useEffect(() => {

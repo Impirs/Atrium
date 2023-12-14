@@ -3,7 +3,7 @@ import './css/Calendar.css';
 
 import React, { useEffect } from "react";
 // import { showCalendar } from "./Calendar_lib";
-import { draw } from "./calendar_lib";
+import { draw } from "../library/calendar";
 
 const Calendar: React.FC = () => {
   useEffect(() => {
@@ -32,19 +32,21 @@ const Calendar: React.FC = () => {
   return (
     <div className="screen">
       <div className="box">
-        <div className='eventcal'>
-          <div id='eventcalendar'></div>
+        <div className="month">
+          <div id="monthcal"></div>
+        </div>
+        <div className="container">
+          <div id="daycal"></div>
         </div>
       </div>
     </div>
   );
 };
 
-// <div className="month">
-//   <div id="monthcal"></div>
-// </div>
-// <div className="container">
-//   <div id="daycal"></div>
-// </div>
+
+
+// <div className='eventcal'>
+//   <div id='eventcalendar'></div>
+// </div >
 
 export default Calendar;

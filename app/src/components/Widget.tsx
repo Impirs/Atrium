@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { drawSchedule } from "../pages/schedule";
-import { draw } from '../pages/calendar_lib'
-import { showBigday } from "../pages/events"; //Error
-import { showProgress } from "../pages/todo";
+import { drawSchedule } from "../library/schedule";
+import { draw } from '../library/calendar'
+import { showBigday } from "../library/events"; //Error
+import { showProgress } from "../library/todo";
 import { Image } from "./Custom_w";
 import { create } from 'domain';
 
