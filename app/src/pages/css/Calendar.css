@@ -57,7 +57,7 @@
     margin-top: 20px;
 }
 
-#monthcal table tr td {
+#monthcal .dyncalendar-month-container .table-data {
     min-height: 36px;
     min-width: 36px;
     text-align: center;
@@ -68,10 +68,68 @@
         -5px -5px 10px var(--calendar-clr);
 }
 
-#monthcal table td:hover {
+#monthcal .dyncalendar-month-container .table-data:hover {
     box-shadow:
         inset 2px 2px 5px var(--shadow-clr),
         inset -2px -2px 5px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .table-prev-data {
+    min-height: 36px;
+    min-width: 36px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: var(--shadow-clr);
+    box-shadow:
+        5px 5px 10px var(--shadow-clr),
+        -5px -5px 10px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .table-prev-data:hover {
+    color: var(--shadow-clr);
+    box-shadow:
+        inset 2px 2px 5px var(--shadow-clr),
+        inset -2px -2px 5px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .table-next-data {
+    min-height: 36px;
+    min-width: 36px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: var(--shadow-clr);
+    box-shadow:
+        5px 5px 10px var(--shadow-clr),
+        -5px -5px 10px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .table-next-data:hover {
+    color: var(--shadow-clr);
+    box-shadow:
+        inset 2px 2px 5px var(--shadow-clr),
+        inset -2px -2px 5px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .dyncalendar-today-date {
+    min-height: 36px;
+    min-width: 36px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--lpanel-clr);
+    color: var(--calendar-clr);
+    box-shadow:
+        5px 5px 10px var(--shadow-clr),
+        -5px -5px 10px var(--calendar-clr);
+}
+
+#monthcal .dyncalendar-month-container .dyncalendar-today-date:hover {
+    background: var(--lpanel-clr);
+    color: var(--calendar-clr);
+    box-shadow:
+        inset 2px 2px 5px var(--dark-clr),
+        inset -2px -2px 5px var(--hover-clr);
 }
 
 #monthcal table tr:nth-child(1) td {
@@ -94,14 +152,6 @@
 #monthcal table tr:nth-child(1) td:nth-child(7) {
     background: var(--secondary-clr);
     color: #000;
-}
-
-#monthcal .dyncalendar-month-container .dyncalendar-today-date {
-    background: var(--lpanel-clr);
-    color: var(--calendar-clr) !important;
-    box-shadow:
-        2px 2px 5px var(--shadow-clr),
-        -2px -2px 5px var(--calendar-clr) !important;
 }
 
 #monthcal .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn {

@@ -1,33 +1,45 @@
 import './css/default.css';
 import './css/Calendar.css';
 
-import React, { useEffect } from "react";
-// import { showCalendar } from "./Calendar_lib";
+import React, { useEffect, useState } from "react";
 import { draw } from "../library/calendar";
 
+const ipcRenderer = (window as any).ipcRenderer;
+
 const Calendar: React.FC = () => {
+  const [ selectedDate, setNewDate ] = useState({ date: 0, month: 0, year: 0 });
+
   useEffect(() => {
-    //show month calendar
+    ipcRenderer.send("default-date-active");
+
+    const handleNewDateReply = (event: any, { date, month, year }:
+      { date: number; month: number; year: number }) => {
+      setNewDate({ date, month, year });
+    };
+
+    ipcRenderer.on('default-date-active-reply', handleNewDateReply);
+    ipcRenderer.on('new-date-active-reply', handleNewDateReply);
+  }, []);
+
+  useEffect(() => {
     draw({
       target: '#monthcal',
       type: 'month',
+      date: selectedDate.date,
+      month: selectedDate.month,
+      year: selectedDate.year,
       highlighttoday: true,
       prevnextbutton: 'show',
     });
-    // show day calendar
+
     draw({
       target: '#daycal',
       type: 'day',
+      date: selectedDate.date,
+      month: selectedDate.month,
+      year: selectedDate.year,
     });
-    // show full events calendar
-    draw({
-      target: '#eventcalendar',
-      type: 'full',
-      prevnextbutton: 'show',
-      highlighttoday: true,
-
-    })
-  }, []);
+  }, [ selectedDate ]);
 
   return (
     <div className="screen">
@@ -37,16 +49,11 @@ const Calendar: React.FC = () => {
         </div>
         <div className="container">
           <div id="daycal"></div>
+          <div id="events"></div>
         </div>
       </div>
     </div>
   );
 };
-
-
-
-// <div className='eventcal'>
-//   <div id='eventcalendar'></div>
-// </div >
 
 export default Calendar;

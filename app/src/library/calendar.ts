@@ -1,3 +1,5 @@
+import Button from "../components/Button";
+
 declare var dyncalendar: Dyncalendar;
 
 interface Dyncalendar {
@@ -32,7 +34,7 @@ interface CalendarData {
 
 interface CalendarOption {
     target: string;
-    type?: "day" | "month" | "full";
+    type?: "day" | "month";
     month?: number;
     year?: number;
     date?: number;
@@ -45,6 +47,7 @@ interface CalendarOption {
 
 //window document
 const document = global.document;
+const ipcRenderer = (window as any).ipcRenderer;
 //najmanja godina, koju mozete koristiti
 const MIN_YEAR = 1111;
 //najveca godina, koju mozete koristiti
@@ -104,10 +107,10 @@ const eventsArr: {
         time: string;
     }[];
 }[] = [];
-// const eventManager = new EventManager();
 const activeDates: { [date: number]: boolean } = {};
 
 // ================================== HTML =================================== //
+
 function createMonthTable(data: any, option: any): HTMLTableElement {
     let table: HTMLTableElement,
         tr: HTMLTableRowElement,
@@ -115,6 +118,7 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
         row: number,
         value: number,
         count: number;
+    const dateObj = new Date();
     table = document.createElement("table");
     tr = document.createElement("tr");
     //createf 1st row for the day letters
@@ -126,34 +130,53 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
     table.appendChild(tr);
     //create 2nd row for dates
     tr = document.createElement("tr");
-    //blank td
+    let i = data.firstDayIndex;
+    const prevDate = new Date();
+    if (option.monthIndex == 0) {
+        prevDate.setFullYear(option.year - 1);
+    } else prevDate.setFullYear(option.year);
+    prevDate.setMonth(option.month);
+    prevDate.setDate(0);
+    const total = prevDate.getDate();
     for (value = 0; value <= 6; value++) {
-        if (value === data.firstDayIndex) {
+        const td = document.createElement("td");
+        if (i === 0) {
             break;
         }
-        td = document.createElement("td");
+
+        td.innerHTML = (prevDate.getDate() + 1 - i).toString();
+        td.setAttribute("data-date", (prevDate.getDate() + 1 - i).toString());
+        td.setAttribute("data-month", prevDate.getMonth().toString());
+        td.setAttribute("data-year", prevDate.getFullYear().toString());
+        td.setAttribute("class", "table-prev-data");
+
         tr.appendChild(td);
+
+        i--;
     }
+
     //remaing td of dates for the 2nd row
     count = 1;
     while (value <= 6) {
         td = document.createElement("td");
         td.innerHTML = count.toString();
-
+        td.setAttribute("data-date", count.toString());
+        td.setAttribute("data-month", option.month);
+        td.setAttribute("data-year", option.year);
         if (
             data.today.date === count &&
             data.today.monthIndex === data.monthIndex &&
+            parseInt(option.year) === parseInt(data.today.year) &&
             option.highlighttoday === true
         ) {
             td.setAttribute("class", "dyncalendar-today-date");
-        }
-        if (
+        } else if (
             option.date === count &&
             option.month === data.monthIndex &&
             option.highlighttargetdate === true
         ) {
             td.setAttribute("class", "dyncalendar-target-date");
-        }
+        } else td.setAttribute("class", "table-data");
         tr.appendChild(td);
         count++;
         value++;
@@ -163,32 +186,73 @@ function createMonthTable(data: any, option: any): HTMLTableElement {
     for (row = 3; row <= 7; row++) {
         tr = document.createElement("tr");
         for (value = 0; value <= 6; value++) {
-            if (count > data.totaldays) {
+            if (count > data.totaldays && value != 0) {
+                const nextDate = new Date();
+                if (option.monthIndex === 11) {
+                    nextDate.setDate(1);
+                    nextDate.setMonth(0);
+                    nextDate.setFullYear(option.year + 1);
+                } else {
+                    nextDate.setDate(1);
+                    nextDate.setMonth(option.month + 1);
+                }
+                let i = 1;
+                while (value <= 6) {
+                    td = document.createElement("td");
+                    td.innerHTML = nextDate.getDate().toString();
+                    td.setAttribute("data-date", nextDate.getDate().toString());
+                    td.setAttribute(
+                        "data-month",
+                        nextDate.getMonth().toString()
+                    );
+                    td.setAttribute(
+                        "data-year",
+                        nextDate.getFullYear().toString()
+                    );
+                    td.setAttribute("class", "table-next-data");
+                    tr.appendChild(td);
+                    nextDate.setDate(1 + i);
+                    i++;
+                    value++;
+                }
+                table.appendChild(tr);
+                return table;
+            } else if (count > data.totaldays && value == 0) {
                 table.appendChild(tr);
                 return table;
             }
             td = document.createElement("td");
             td.innerHTML = count.toString();
+            td.setAttribute("data-date", count.toString());
+            td.setAttribute("data-month", option.month);
+            td.setAttribute("data-year", option.year);
             if (
                 data.today.date === count &&
                 data.today.monthIndex === data.monthIndex &&
+                parseInt(option.year) === parseInt(data.today.year) &&
                 option.highlighttoday === true
             ) {
                 td.setAttribute("class", "dyncalendar-today-date");
-            }
-            if (
+            } else if (
                 option.date === count &&
                 option.month === data.monthIndex &&
                 option.highlighttargetdate === true
             ) {
                 td.setAttribute("class", "dyncalendar-target-date");
-            }
+            } else td.setAttribute("class", "table-data");
             count++;
             tr.appendChild(td);
         }
         table.appendChild(tr);
     }
     return table;
+}
+
+function createWindow(): HTMLDivElement {
+    let container: HTMLDivElement, div: HTMLDivElement, but: HTMLButtonElement;
+    container = document.createElement("div");
+
+    return container;
 }
 
 function drawCalendarMonth(data: any, option: any): HTMLDivElement {
@@ -267,9 +331,9 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {
     elem = document.createElement("span");
     elem.setAttribute("class", "dyncalendar-span-date");
     elem.innerHTML = data.date;
-    //add date span to body div
+    //add date span to header div
     div.appendChild(elem);
-    //add body div to container
+    //add header div to container
     container.appendChild(div);
 
     //-------------------------- Body -------------------------//
@@ -285,9 +349,9 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {
     } else if (option.dayformat === "full") {
         elem.innerHTML = dayName.full[data.targetedDayIndex];
     }
-    //add day span to footer div
+    //add day span to body div
     div.appendChild(elem);
-    //add header div to container
+    //add body div to container
     container.appendChild(div);
 
     //------------------------- Footer ------------------------//
@@ -312,247 +376,8 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {
     return container;
 }
 
-/* function drawCalendarFull(data: any, option: any): HTMLDivElement {
-    let div: HTMLDivElement,
-        container: HTMLDivElement,
-        box: HTMLDivElement,
-        table: HTMLTableElement,
-        elem: HTMLSpanElement;
+// =============================== FUNCTIONS ================================= //\
 
-    for (let date = 1; date <= 31; date++) {
-        activeDates[date] = false;
-    }
-
-    const today = new Date();
-    const todayDate = today.getDate();
-    activeDates[todayDate] = true;
-
-    container = document.createElement('div'); // Main container for everything
-    container.setAttribute('class', 'full-dyncalendar-container');
-    table = createMonthTable(data, option);
-
-    // Left box
-    box = document.createElement('div'); //Container for month calendar
-    box.setAttribute('class', 'dyncalendar-month-container');
-    {
-        // month header
-        div = document.createElement('div');
-        div.setAttribute('class', 'dyncalendar-header');
-        div.setAttribute('data-option', JSON.stringify(option));
-        // prev button
-        if (option.prevnextbutton === 'show') {
-            elem = document.createElement('span');
-            elem.setAttribute('class', 'dyncalendar-prev-next-btn prev-btn');
-            elem.setAttribute('data-date', option.date);
-            elem.setAttribute('data-month', option.month);
-            elem.setAttribute('data-year', option.year);
-            elem.setAttribute('data-btn', 'prev');
-            elem.innerHTML = '&lt;';
-            //add prev button span to header div
-            div.appendChild(elem);
-        }
-        //month span
-        elem = document.createElement('span');
-        elem.setAttribute('class', 'dyncalendar-span-month-year');
-        if (option.monthformat === 'mmm') {
-            elem.innerHTML = data.monthName + ' ' + data.year;
-        } else if (option.monthformat === 'full') {
-            elem.innerHTML = data.monthNameFull + ' ' + data.year;
-        }
-        //add month span to header div
-        div.appendChild(elem);
-        //next button
-        if (option.prevnextbutton === 'show') {
-            elem = document.createElement('span');
-            elem.setAttribute('class', 'dyncalendar-prev-next-btn next-btn');
-            elem.setAttribute('data-date', option.date);
-            elem.setAttribute('data-month', option.month);
-            elem.setAttribute('data-year', option.year);
-            elem.setAttribute('data-btn', 'next');
-            elem.innerHTML = '&gt;';
-            //add prev button span to header div
-            div.appendChild(elem);
-        }
-        //add header div to container
-        box.appendChild(div);
-
-        // month body
-        table.addEventListener('click', function (event: MouseEvent) {
-            const target = event.target as HTMLElement;
-            if (target.tagName === 'TD') {
-                const clickedDate = parseInt(target.innerHTML);
-                // Обновление состояний активности дат
-                updateActiveDates(clickedDate);
-                // Обновление содержимого календаря дня (справа)
-                updateDayCalendar(data, option, clickedDate, container);
-            }
-        });
-
-        div = document.createElement('div');
-        div.setAttribute('class', 'dyncalendar-body');
-        div.appendChild(table);
-        //add body div to container div
-        box.appendChild(div);
-    }
-    container.appendChild(box);
-
-    // Right box
-    box = document.createElement('div'); //Container for day calendar and events
-    box.setAttribute('class', 'dyncalendar-day-events-container');
-    {
-        // event day header
-        div = document.createElement('div');
-        div.setAttribute('class', 'dyncalendar-header');
-        //date span
-        elem = document.createElement('span');
-        elem.setAttribute('class', 'dyncalendar-span-date');
-        elem.innerHTML = data.date;
-        //add date span to body div
-        div.appendChild(elem);
-        //add body div to container
-        box.appendChild(div);
-
-        // event day body 
-        div = document.createElement('div');
-        div.setAttribute('class', 'dyncalendar-body');
-        //day span
-        elem = document.createElement('span');
-        elem.setAttribute('class', 'dyncalendar-span-day');
-        if (option.dayformat === 'ddd') {
-            elem.innerHTML = dayName.ddd[data.targetedDayIndex];
-        } else if (option.dayformat === 'full') {
-            elem.innerHTML = dayName.full[data.targetedDayIndex];
-        }
-        //add day span to footer div
-        div.appendChild(elem);
-        //add header div to container
-        box.appendChild(div);
-
-        // event day footer
-        div = document.createElement('div');
-        div.setAttribute('class', 'dyncalendar-footer');
-        //month span
-        elem = document.createElement('span');
-        elem.setAttribute('class', 'dyncalendar-span-month-year');
-        if (option.monthformat === 'mmm') {
-            elem.innerHTML = data.monthName + ' ' + data.year;
-        } else if (option.monthformat === 'full') {
-            elem.innerHTML = data.monthNameFull + ' ' + data.year;
-        }
-        //add month span to footer div
-        div.appendChild(elem);
-        //add footer div to container
-        box.appendChild(div);
-        // events
-        const eventsContainer = document.createElement('div');
-        eventsContainer.setAttribute('class', 'events-container');
-
-        // Function expression for showing events by date
-        const showEventsByDate = function (
-            selDate: number,
-            selMonth: number,
-            selYear: number
-        ): void {
-            // Clear the content of the events container
-            eventsContainer.innerHTML = '';
-
-            // Get events for the selected date
-            const eventsByDate = eventManager.getEventsByDate(selDate, selMonth, selYear);
-
-            // Display events
-            if (eventsByDate.length > 0) {
-                const eventsList = document.createElement('ul');
-                eventsList.setAttribute('class', 'events-list');
-
-                eventsByDate.forEach((event: any) => {
-                    const eventItem = document.createElement('li');
-                    eventItem.textContent = `${event.name} - ${event.group}`;
-                    eventsList.appendChild(eventItem);
-                });
-
-                eventsContainer.appendChild(eventsList);
-            } else {
-                const noEventsMessage = document.createElement('p');
-                noEventsMessage.textContent = 'No events for the selected date.';
-                eventsContainer.appendChild(noEventsMessage);
-            }
-        };
-
-        // Add the events container to the main container
-        box.appendChild(eventsContainer);
-
-        // Show events on initialization
-        showEventsByDate(data.date, data.month, data.year);
-
-        // add event button
-        elem = document.createElement('span');
-        elem.setAttribute('class', 'add-event-button');
-        elem.innerHTML = '+';
-        div.appendChild(elem);
-
-        // Обработчик события для кнопки добавления события
-        elem.addEventListener('click', function () {
-            // Создаем раздел "add event input"
-            const addEventInputContainer = document.createElement('div');
-            addEventInputContainer.setAttribute('class', 'add-event-input-container');
-
-            // Поля для названия события и названия группы
-            const eventNameInput = document.createElement('input');
-            eventNameInput.setAttribute('type', 'text');
-            eventNameInput.setAttribute('placeholder', 'Event Name');
-
-            const groupNameInput = document.createElement('input');
-            groupNameInput.setAttribute('type', 'text');
-            groupNameInput.setAttribute('placeholder', 'Group Name');
-
-            // Кнопка для создания события
-            const createEventButton = document.createElement('button');
-            createEventButton.textContent = 'Create Event';
-
-            // Обработчик события для создания события
-            createEventButton.addEventListener('click', function () {
-                // Получаем выбранную дату
-                const selDate = data.day; // .fullDate
-                const selMonth = data.month; // .fullDate
-                const selYear = data.year; // .fullDate
-
-                // Получаем значения из полей ввода
-                const eventName = eventNameInput.value;
-                const groupName = groupNameInput.value;
-
-                // Создаем новое событие
-                eventManager.createEvent(
-                    selDate,
-                    selMonth,
-                    selYear,
-                    eventName,
-                    groupName
-                );
-
-                // Обновляем список событий
-                showEventsByDate(selDate, selMonth, selYear);
-
-                // Очищаем поля ввода
-                eventNameInput.value = '';
-                groupNameInput.value = '';
-            });
-
-            // Добавляем поля и кнопку в раздел "add event input"
-            addEventInputContainer.appendChild(eventNameInput);
-            addEventInputContainer.appendChild(groupNameInput);
-            addEventInputContainer.appendChild(createEventButton);
-
-            // Добавляем раздел "add event input" в основной контейнер
-            box.appendChild(addEventInputContainer);
-        });
-        box.appendChild(div);
-    }
-    container.appendChild(box);
-    return container;
-}
-*/
-
-// =============================== FUNCTIONS ================================= //
 function extendSource(source: any, defaults: any): any {
     let property: string;
     for (property in defaults) {
@@ -630,32 +455,6 @@ function getCalendar(year?: number, month?: number, date?: number): any {
     return result;
 }
 
-function updateActiveDates(clickedDate: number) {
-    for (const date in activeDates) {
-        if (Object.prototype.hasOwnProperty.call(activeDates, date)) {
-            activeDates[date] = false;
-        }
-    }
-    activeDates[clickedDate] = true;
-}
-
-// Функция для обновления календаря дня (справа)
-function updateDayCalendar(
-    data: any,
-    option: any,
-    clickedDate: number,
-    container: HTMLDivElement
-) {
-    // Получение элементов календаря дня и обновление их содержимого
-    const dayDateElement = container.querySelector(".dyncalendar-span-date");
-    const dayDayElement = container.querySelector(".dyncalendar-span-day");
-
-    if (dayDateElement && dayDayElement) {
-        dayDateElement.innerHTML = clickedDate.toString();
-        dayDayElement.innerHTML = dayName.ddd[data.targetedDayIndex];
-    }
-}
-
 // ================================== DRAW =================================== //
 function drawCalendar(option: any) {
     let //variables for creating calendar
@@ -687,11 +486,6 @@ function drawCalendar(option: any) {
             calendar = getCalendar(option.year, option.month, option.date);
             //get calendar html
             calendarHTML = drawCalendarMonth(calendar, option);
-            break;
-        case "full":
-            calendar = getCalendar(option.year, option.month, option.date);
-            //get calendar html
-            //calendarHTML = drawCalendarFull(calendar, option);
             break;
         default:
             global.console.error("Invalid type");
@@ -767,7 +561,7 @@ function onClick() {
                     month = 0;
                 }
             }
-
+            // console.log(date, month, year);
             option.date = date;
             option.month = month;
             option.year = year;
@@ -789,6 +583,45 @@ function onClick() {
             option.month = dateObj.getMonth();
             option.year = dateObj.getFullYear();
             drawCalendar(option);
+        }
+
+        //choose the date
+        if (
+            targetDomObject &&
+            targetDomObject.classList &&
+            (targetDomObject.classList.contains("table-data") ||
+                targetDomObject.classList.contains("dyncalendar-today-date") ||
+                targetDomObject.classList.contains("dyncalendar-target-date") ||
+                targetDomObject.classList.contains("table-prev-data") ||
+                targetDomObject.classList.contains("table-next-data"))
+        ) {
+            date = parseInt(
+                targetDomObject.getAttribute("data-date") || "0",
+                10
+            );
+            month = parseInt(
+                targetDomObject.getAttribute("data-month") || "0",
+                10
+            );
+            year = parseInt(
+                targetDomObject.getAttribute("data-year") || "0",
+                10
+            );
+            ipcRenderer.send("new-date-active", {
+                date,
+                month,
+                year,
+            });
+            // console.log(date, month, year);
+        }
+
+        // add event
+        if (
+            targetDomObject &&
+            targetDomObject.classList &&
+            targetDomObject.classList.contains("add-event-button")
+        ) {
+            console.log("It works!");
         }
     };
 }

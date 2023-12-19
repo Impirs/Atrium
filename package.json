@@ -1,6 +1,6 @@
 {
   "name": "atrium",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Desctop app for tracking your daily and long-term tasks.",
   "main": "index.js",
   "scripts": {
