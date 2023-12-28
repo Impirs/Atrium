@@ -69,7 +69,7 @@ ipcMain.on("get-events-by-group", (event, { groupName }) => {
     const eventsByGroup = eventManager.getEventsByDate(groupName);
     event.reply("get-events-by-group-reply", eventsByGroup);
 });
-
+// Maybe should be .handle cuz of function
 ipcMain.on(
     "create-event",
     (event, { selDate, selMonth, selYear, eventName, groupName }) => {
@@ -80,10 +80,10 @@ ipcMain.on(
             eventName,
             groupName
         );
-        event.reply("create-event-reply", newEvent);
+        event.reply("create-event-reply", "Event created successfully");
     }
 );
-
+// Maybe should be .handle cuz of function
 ipcMain.on(
     "delete-event",
     (event, { selDate, selMonth, selYear, eventName, groupName }) => {
@@ -97,7 +97,7 @@ ipcMain.on(
         event.reply("delete-event-reply", "Event deleted successfully");
     }
 );
-
+// Maybe should be .handle cuz of function
 ipcMain.on("delete-events-by-date", (event, { selDate, selMonth, selYear }) => {
     eventManager.deleteEventsByDate(selDate, selMonth, selYear);
     event.reply("delete-events-by-date-reply", "Events deleted successfully");
