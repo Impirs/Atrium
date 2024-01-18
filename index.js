@@ -21,7 +21,7 @@ require("./services/ipcM");
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
         title: "Atrium",
-        width: 1000, //1500,
+        width: 1250, //1000,
         height: 750,
         webPreferences: {
             nodeIntegration: true,

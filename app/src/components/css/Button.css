@@ -12,7 +12,7 @@
 }
 
 .custom-button:hover {
-    fill: var(--lpanel-clr);
+    fill: var(--primery-clr);
     background-color: var(--hover-clr);
 }
 
