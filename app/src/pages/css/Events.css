@@ -1,218 +1,319 @@
 @import '../../theme.css';
 
-.screen {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: var(--backgr-clr);
+.container {
+    height: 100%;
 }
 
-.eventcal {
-    position: relative;
-    display: flex;
-    min-width: 480px;
-    min-height: 476px;
-    background: var(--calendar-clr);
-    border-radius: 10px;
-    box-shadow:
-        5px 5px 25px var(--shadow-clr),
-        -5px -5px 25px var(--shadow-clr);
-}
-
-/*===========================MONTHCALENDAR=========================*/
-
-#eventcalendar {
-    font-size: 1.5em;
-    width: 100%;
-    padding: 32px 30px 30px;
-}
-
-#eventcalendar .dyncalendar-header {
-    height: 44px;
-}
-
-#eventcalendar table {
-    font-size: 0.75em;
-    width: 100%;
-    border-spacing: 15px;
-    margin-top: 20px;
-}
-
-#eventcalendar table tr td {
-    min-height: 36px;
-    min-width: 36px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow:
-        5px 5px 10px var(--shadow-clr),
-        -5px -5px 10px var(--calendar-clr);
-}
-
-#eventcalendar table td:hover {
-    box-shadow:
-        inset 2px 2px 5px var(--shadow-clr),
-        inset -2px -2px 5px var(--calendar-clr);
-}
-
-#eventcalendar table tr:nth-child(1) td {
-    background: var(--lpanel-clr);
-    color: var(--calendar-clr);
-    min-height: auto;
-    min-width: auto;
-    border-radius: 10px;
-    font-weight: 700;
-    box-shadow:
-        5px 5px 10px var(--shadow-clr),
-        -5px -5px 10px var(--calendar-clr);
-}
-
-#eventcalendar table tr:nth-child(1) td:nth-child(6) {
-    background: var(--secondary-clr);
-    color: #000;
-}
-
-#eventcalendar table tr:nth-child(1) td:nth-child(7) {
-    background: var(--secondary-clr);
-    color: #000;
-}
-
-#eventcalendar .dyncalendar-month-container .dyncalendar-today-date {
-    background: var(--lpanel-clr);
-    color: var(--calendar-clr) !important;
-    box-shadow:
-        2px 2px 5px var(--shadow-clr),
-        -2px -2px 5px var(--calendar-clr) !important;
-}
-
-#eventcalendar .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn {
-    width: 36px;
-    text-align: center;
-    font-size: 1em;
-    left: 15px;
-    top: 4px;
-    color: var(--dark-clr);
-    background: var(--calendar-clr);
-    border-radius: 10px;
-    box-shadow:
-        2px 2px 5px var(--shadow-clr),
-        -2px -2px 5px var(--calendar-clr);
-}
-
-#eventcalendar .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.next-btn {
-    width: 36px;
-    text-align: center;
-    font-size: 1em;
-    right: 15px;
-    top: 4px;
-    color: var(--dark-clr);
-    background: var(--calendar-clr);
-    border-radius: 10px;
-    box-shadow:
-        2px 2px 5px var(--shadow-clr),
-        -2px -2px 5px var(--calendar-clr);
-}
-
-#eventcalendar .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.prev-btn:active,
-#eventcalendar .dyncalendar-month-container .dyncalendar-header .dyncalendar-prev-next-btn.next-btn:active {
-    box-shadow:
-        inset 2px 2px 5px var(--shadow-clr),
-        inset -2px -2px 5px var(--calendar-clr);
-}
-
-#eventcalendar .dyncalendar-span-month-year {
-    min-width: 282px;
-    left: 49%;
-    transform: translateX(-50%);
-    color: var(--dark-clr);
-    font-size: 1.4em;
-    font-weight: 400;
-}
-
-/*============================DAYCALENDAR==========================*/
-
+/* Стили для daycal */
 #daycal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 6.25%;
+    padding-left: 9.6%;
+    padding-right: 9.6%;
+    border-radius: 10px;
+    height: 25%;
     width: 100%;
-    padding: 30px 30px 30px;
 }
 
-#eventcalendar .dyncalendar-span-date {
-    color: var(--dark-clr);
-    font-weight: 400;
-}
-
-#eventcalendar .dyncalendar-day-events-container {
-    padding: 5px;
+.dyncalendar-day-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    font-family: Arial;
 }
 
-#eventcalendar .dyncalendar-day-events-container div {
-    padding: none;
-    margin-bottom: none;
+.dyncalendar-header,
+.dyncalendar-body,
+.dyncalendar-footer {
+    flex: 1;
+    display: flex;
+    color: var(--text-clr);
+    align-items: center;
+    justify-content: center;
 }
 
-#eventcalendar .dyncalendar-day-events-container .dyncalendar-header {
-    padding: 0px;
-    margin-bottom: none;
-}
-
-#eventcalendar .dyncalendar-day-events-container .dyncalendar-span-date {
+.dyncalendar-span-date {
+    font-weight: 400;
     font-size: 2.5em;
 }
 
-#eventcalendar .dyncalendar-day-events-container .dyncalendar-span-day {
+.dyncalendar-span-day {
     font-size: 1.5em;
 }
 
-#eventcalendar .dyncalendar-day-events-container .dyncalendar-span-month-year {
+.dyncalendar-span-month-year {
     font-size: 0.75em;
-    min-height: 14px;
 }
 
-.events-list ul {
+/* Стили для events */
+#events {
+    position: absolute;
+    bottom: 0;
+    height: 75%;
     width: 100%;
-    height: 100%;
-    max-height: 600px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    padding-left: 9.6%;
+    padding-right: 9.6%;
+    padding-bottom: 9%;
+}
+
+#event-ready-marker {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    background-color: var(--mark-clr);
+    border: 2px solid var(--days-clr);
+    border-radius: 8px;
+    box-shadow:
+        2px 2px 5px var(--shadow-clr),
+        -2px -2px 5px var(--calendar-clr);
+}
+
+#event-ready-marker.non-ready {
+    background-color: var(--calendar-clr);
+}
+
+#delete-event-button {
+    display: flex;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--days-clr);
+    box-shadow: 2px 2px 5px var(--shadow-clr),
+        -2px -2px 5px var(--calendar-clr);
+}
+
+#delete-event-button:hover {
+    box-shadow:
+        inset 2px 2px 5px var(--shadow-clr),
+        inset -2px -2px 5px var(--calendar-clr);
+}
+
+#delete-event-button .deleteEvent {
+    color: var(--icon-clr);
+}
+
+.events-manager {
     display: flex;
     flex-direction: column;
-    padding-left: 4px;
+    position: relative;
+    height: 100%;
+    z-index: 1;
 }
 
-.events-list ul li {
+.event-list-container {
+    flex: 1;
     position: relative;
-    width: 95%;
-    min-height: 70px;
     display: flex;
+    min-height: 87.5%;
     justify-content: center;
+    z-index: 1;
+}
+
+.event-list {
+    list-style: none;
+    padding: 4px;
+    width: 100%;
+    display: flex;
     flex-direction: column;
     gap: 5px;
-    padding: 0 20px;
-    padding-left: 50px;
-    color: #fff;
-    background: linear-gradient(90deg, #3f4458, transparent);
-    cursor: pointer;
+    background-color: var(--secondary-clr);
+    border-radius: 10px;
 }
 
-.add-event-button {
-    z-index: 1;
+.event-list .event {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 25%;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: var(--text-clr);
+    border-radius: 10px;
+    background-color: var(--calendar-clr);
+    transition: box-shadow 0.3s ease;
+}
+
+.event-list .event .event-title {
+    flex-grow: 1;
+    display: inline-block;
     position: absolute;
-    bottom: 30px;
-    right: 30px;
-    width: 40px;
-    height: 40px;
+    left: 10px;
+    top: 6px;
+}
+
+.event-list .event .group-field {
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    bottom: 6px;
+    padding: 5px;
+    border-radius: 6px;
+    background-color: var(--g-test-clr);
+}
+
+.event-list .event .group-field .group-field-inner {
+    color: var(--dark-text-clr);
+}
+
+.event-list .event .event-toolbox {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    right: 6px;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-event-wrapper {
+    position: absolute;
+    bottom: calc(12.5%);
+    /* Задаем отрицательный отступ вручную */
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: max-height 0.75s ease-out;
+    background-color: var(--calendar-clr);
+    box-shadow: 2px 2px 5px var(--shadow-clr);
+}
+
+.add-event-wrapper.active {
+    max-height: 300px;
+}
+
+.wrapper-header {
+    width: 100%;
+    height: 25%;
+    margin-top: 5%;
+}
+
+.wrapper-header .wrapper-header-title {
+    font-size: 1.2em;
+    font-weight: 150;
+}
+
+.wrapper-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.wrapper-body .add-event-input {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.wrapper-body .add-event-input input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--text-clr);
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-clr);
+    background-color: var(--calendar-clr);
+}
+
+.wrapper-body .add-event-input input::placeholder {
+    color: var(--shadow-clr);
+}
+
+.wrapper-body .add-event-input input.error::placeholder {
+    color: var(--error-clr);
+}
+
+.wrapper-body .add-event-input input:focus {
+    border-bottom: 1px solid var(--text-clr);
+}
+
+.wrapper-body .add-event-input input:focus::placeholder {
+    color: var(--calendar-clr);
+}
+
+.create-event-button {
+    height: 36px;
+    width: 50%;
+    cursor: pointer;
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    color: #878895;
-    border: 2px solid #878895;
-    opacity: 0.5;
-    border-radius: 50%;
-    background-color: transparent;
+    margin-bottom: 5px;
+    color: var(--text-clr);
+    background: var(--calendar-clr);
+    border-radius: 10px;
+    box-shadow:
+        2px 2px 5px var(--shadow-clr),
+        -2px -2px 5px var(--calendar-clr);
+}
+
+.create-event-button:hover {
+    box-shadow:
+        inset 2px 2px 5px var(--shadow-clr),
+        inset -2px -2px 5px var(--calendar-clr);
+}
+
+.event-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 12.5%;
+    width: 100%;
+}
+
+.scoreboard {
+    flex-grow: 1;
+    font-size: 0.75em;
+    text-align: left;
+    color: var(--second-text-clr);
+}
+
+.add-event-button {
+    height: 36px;
+    width: 54px;
     cursor: pointer;
+    aspect-ratio: 3/2;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-clr);
+    background: var(--calendar-clr);
+    border-radius: 10px;
+    box-shadow:
+        2px 2px 5px var(--shadow-clr),
+        -2px -2px 5px var(--calendar-clr);
+}
+
+.add-event-button:hover {
+    box-shadow:
+        inset 2px 2px 5px var(--shadow-clr),
+        inset -2px -2px 5px var(--calendar-clr);
 }

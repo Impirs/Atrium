@@ -1,7 +1,7 @@
 {
-  "name": "atrium",
-  "version": "0.0.2",
-  "description": "Desctop app for tracking your daily and long-term tasks.",
+  "name": "atrium-vv",
+  "version": "1.0.0",
+  "description": "none",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,14 +12,20 @@
     "electron",
     "reactjs",
     "typescript",
-    "goland"
+    "google",
+    "api"
   ],
-  "author": "Artem Mamitov",
+  "author": "Duck",
   "license": "MIT",
   "dependencies": {
-    "electron": "^27.0.3",
+    "electron": "^28.1.4",
     "electron-store": "^8.1.0",
-    "fs": "^0.0.1-security",
-    "react-router-dom": "^6.19.0"
+    "electronmon": "^2.0.2",
+    "eventemitter": "^0.3.3",
+    "process": "^0.11.10",
+    "store": "^2.0.12"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10"
   }
 }

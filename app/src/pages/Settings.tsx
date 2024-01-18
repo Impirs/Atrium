@@ -1,7 +1,21 @@
-import React from "react"
+import "./css/Settings.css"
 
-export const Settings: React.FC = () => {
-    return <div>This is a Settings page content</div>
+import React, { useEffect, useState } from "react"
+import { render } from "../library/settings";
+
+const ipcRenderer = (window as any).ipcRenderer;
+
+const Settings: React.FC = () => {
+
+    useEffect(() => {
+        render({ target: "#settings" });
+    }, []);
+
+    return (
+        <div className="s-screen">
+            <div id="settings"></div>
+        </div>
+    );
 };
 
 export default Settings;

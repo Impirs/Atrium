@@ -1,31 +1,79 @@
 :root {
     --main-font: url('../../assets/fonts/Comfortaa/Comfortaa_Bold.ttf');
-    --lpanel-clr: #60718f;
-    --hover-clr: #8090a9;
-    --backgr-clr: #c9d1d8;
-    --calendar-clr: #f0eae4;
-    --icon-clr: #f0eae4;
-    --secondary-clr: #f4d3d1;
-    --shadow-clr: #252d3a4b;
-    --dark-clr: #252d3a;
+    transition:
+        --primery-clr 0.5s ease,
+        --calendar-clr 0.5s ease,
+        --backgr-clr 1s ease,
+        --secondary-clr 0.5s ease,
+        --icon-clr 0.5s ease,
+        --mark-clr 0.5s ease,
+        --error-clr 0.5s ease,
+        --text-clr 1s ease,
+        --rever-text-clr 1s ease,
+        --shadow-clr 0.5s ease;
 }
 
-.light-theme {
-    --lpanel-clr: #60718f;
-    /* --secondary-clr: #8090a9; */
-    --backgr-clr: #c9d1d8;
+[data-theme='light'] {
+    /* Color for left panel, widgets 
+        and other main components */
+    --primery-clr: #60718f;
     --calendar-clr: #f0eae4;
-    --icon-clr: #f0eae4;
+    --days-clr: #60718f;
+    --days-text-clr: #f0eae4;
+    /* background color for Content back*/
+    --backgr-clr: #c9d1d8;
+    /* Color for addictional windows and 
+        other small but important things */
     --secondary-clr: #f4d3d1;
+    /* Icons, DONE marks, ERRORs,
+        text color and shadows */
+    --icon-clr: #f0eae4;
+    --mark-clr: #5AFF15;
+    --error-clr: #B10F2E;
+    /* Text colors */
+    --text-clr: #252d3a;
+    --second-text-clr: #252d3a4d;
+    --dark-text-clr: #252d3a;
+    --light-text-clr: #f0eae4;
+    --rever-text-clr: #f0eae4;
     --shadow-clr: #252d3a4b;
+    /* Group basic themes */
+    --g-test-clr: #43AA8B;
 }
 
-.dark-theme {
-    --primery-clr: ;
-    --secondary-clr: ;
-    --backgr-clr: ;
-    --lpanel-clr: ;
-    --icons-clr: ;
+[data-theme='dark'] {
+    /* Color for left panel, widgets 
+        and other main components */
+    --primery-clr: #4a4e69;
+    /* Colors for calendar page */
+    --calendar-clr: #4a4e69;
+    --days-clr: #22223b;
+    --days-text-clr: #F2E9E4;
+    /* background color for Content back*/
+    --backgr-clr: #22223b;
+    /* Color for addictional windows and 
+        other small but important things */
+    --secondary-clr: #9a8c98;
+    /* Icons, DONE marks, ERRORs,
+        text color and shadows */
+    --icon-clr: #EFF2C0;
+    --mark-clr: #ACC18A;
+    --error-clr: #FF220C;
+    /* Text colors */
+    --text-clr: #F2E9E4;
+    --second-text-clr: #F2E9E49b;
+    --dark-text-clr: #22223b;
+    --light-text-clr: #F2E9E4;
+    --rever-text-clr: #4a4e69;
+    --shadow-clr: #22223b4b;
+    /* Group basic themes */
+    --g-test-clr: #4ECDC4;
+    --g-one-clr: #FF570A;
+    --g-two-clr: #F2C57C;
+    --g-tre-clr: #BDC667;
+    --g-for-clr: #43AA8B;
+    --g-fiv-clr: #4ECDC4;
+    --g-six-clr: #D2FDFF;
 }
 
 @font-face {

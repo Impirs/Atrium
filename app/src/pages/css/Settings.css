@@ -1,0 +1,85 @@
+@import '../../theme.css';
+
+.s-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--backgr-clr);
+}
+
+#settings {
+    margin: 5% 7.5% 5% 7.5%;
+    height: 100%;
+    width: 100%;
+
+}
+
+.settings-page {
+    width: 100%;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    align-items: center;
+    color: var(--text-clr);
+    /* Цвет заголовка */
+}
+
+h2 {
+    font-size: 24px;
+    color: var(--text-clr);
+    /* Цвет подзаголовка */
+}
+
+.theme {
+    margin-top: 10px;
+    align-items: center;
+}
+
+span {
+    font-size: 16px;
+    color: var(--text-clr);
+    /* Цвет текста */
+}
+
+.theme-mode-switcher {
+    position: absolute;
+    right: 10%;
+}
+
+#switcher {
+    display: inline-block;
+    min-height: 24px;
+    min-width: 48px;
+    cursor: pointer;
+}
+
+.switch-handler {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    width: 48px;
+    border: 2px solid var(--primery-clr);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--secondary-clr);
+}
+
+.switch-toggle {
+    height: 20px;
+    width: 22px;
+    z-index: 2;
+    border-radius: 8px;
+    background-color: var(--primery-clr);
+    transition: transform 0.3s ease-in-out;
+}
+
+#switcher.active .switch-toggle {
+    transform: translateX(100%);
+}
