@@ -7,8 +7,10 @@ _An application for tracking your daily and long-term tasks._
 - Tech information
   - Information keeping
   - Calendar
-  - Events
-  - Database
+    - calendar.ts
+    - events.ts
+    - Calendar.tsx
+  - Task list
   - UI
 - User information
   - Account
@@ -19,63 +21,48 @@ _An application for tracking your daily and long-term tasks._
 
 ### Information keeping
 
-**JSON file structure:**
+**JSON Store file structure:**
+
+For today the structure of the storage looks like this. Time and auto repeat of the chosen events, like classess, work meeting, birthdays idt.
 
 ```markdown
 {
-    "user_info": {
-        "name": "admin",
-        "mail": "@gmail.com",
-        "password": "QWerty1234",
-        "created_at": "08:33 27.11.23",
-        "status": 1,
-        "auto": 0
-    },
-    "user_events": {
-        "My birthday": {
-            "day": 17, // 0.1 => every monday and so on
-            "month": 8, // 1 => every month
-            "year": 1, // 1 => every year
-            "show_from": 0, // 0 => chosen day
-            "show_untill": 0, // 1 => infinity, 0 => once
-            "time_hours": 24,
-            "time_minutes": 0,
-            "disc": "This is my birthday"
-        }
-    },
-    "user_widgets": {
-        "1": {
-            "contains": "calendar",
-            "size": "two-two"
-        },
-        "2": {
-            "contains": "budget",
-            "size": "one-two"
-        },
-        "3": {
-            "contains": "image",
-            "size": "two-one"
-        }
+    "groups": {
+        "No group",
+        "Post"
     }
+    "events": {
+        "First version": {
+            "day": 19,
+            "month": 0,
+            "year": 2024, 
+            "group": "Post",
+            "ready": true,
+        }
+    },
 }
 ```
 
 ### Calendar
 
 Let's have a look on functions and their options in the calendar part.
-At this moment this module has 2 files in work, 1 in development and non connected data storage and manager.
-So, first thing we need to observe: is the "calendar's brain" - calendar_lib.ts:
+At this moment this module has 3 main files in work:
+
+- calendar.ts
+- events.ts
+- Calendar.tsx
+
+#### Calendar rendering: calendar.ts
+
+Function for creating the month table:
+_Basicaly it renders Monday-Sunday days row, but user can change it in settings._
 
 ```typescript
-
 @param object data   this contains the calendar data
 @param object option this is the settings object
 @return html
 
-function createMonthTable(data: any, option: any): HTMLTableElement
-```
-
-```typescript
+function createMonthTable(data: any, option: any): HTMLTableElement {}
 
 @param object data   this contains the calendar data
 @param object option this is the settings object
@@ -84,8 +71,9 @@ function createMonthTable(data: any, option: any): HTMLTableElement
 function drawCalendarMonthTable(data: any, option: any): HTMLDivElement {}
 ```
 
-```typescript
+Function for creating the chosen day and it's info.
 
+```typescript
 @param object data   this contains the calendar data
 @param object option this is the settings object
 @return html
@@ -94,7 +82,6 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {}
 ```
 
 ```typescript
-
 @param object source     this is the source object
 @param object defaults   this is the default object
 @return object
@@ -102,9 +89,10 @@ function drawCalendarDay(data: any, option: any): HTMLDivElement {}
 function extendSource(source: any, defaults: any): any {}
 ```
 
-```typescript
+Function to get all info we need about a year of a date:
 
-@param integer year                 //1111-9999 (optional) if not set will consider
+```typescript
+@param integer year                 //(optional) if not set will consider
                                     //the current year.
 @param integer month                //0-11 (optional) 0 = Jan, 1 = Feb, ... 11 = Dec,
                                     //if not set will consider the current month.
@@ -115,7 +103,6 @@ function getCalendar(year?: number, month?: number, date?: number): any {}
 ```
 
 ```typescript
-
 option = {
     target : "#id|.class"           //(mandatory) for id use #id | for class use .class
     type : "calendar-type"          //(optional) values: "day|month" (default "day")
@@ -138,4 +125,20 @@ option = {
 @return boolean                  true if success, false otherwise
 
 export const draw = function (option: Record<string, any>): boolean{}
+```
+
+### Events system: events.ts
+
+```typescript
+@param string date                  //(mandatory) value 1-31 (default current date)
+@param string month                 //(mandatory) value 0-11 (default current month)
+@param string year                  //(mandatory) (default current year)
+
+function createAdder(date: string, month: string, year: string) {}
+```
+
+```typescript
+@param object data                  //this contains the events data for the current
+
+function createEventContainer(data: any): HTMLDivElement {}
 ```

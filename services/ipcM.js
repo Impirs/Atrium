@@ -1,7 +1,5 @@
 const { app, BrowserWindow, Menu, ipcMain } = require("electron");
-const settingsManager = require("./f_Settings");
 const eventManager = require("./f_Events");
-const fileManager = require("./ipcF");
 
 // ================================ GLOBAL ================================= //
 // =============================== CALENDAR ================================ //
